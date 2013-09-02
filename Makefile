@@ -100,7 +100,8 @@ build-tests: .build-tests-post
 # Add your post 'build-tests' code here...
 
 # run tests
-test: .build-tests-impl
+#test: .build-tests-impl
+test: .test-post
 
 .test-pre:
 # Add your pre 'test' code here...

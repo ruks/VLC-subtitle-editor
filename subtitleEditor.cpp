@@ -72,7 +72,7 @@ void subtitleEditor::Update(dataObject object) {
         if (isMarginX || isMarginY) {
             if (isMarginX && r.x() + object.x > gv->x() && r.width() - object.x > 4) {
                 tg->setGeometry(r.x() + object.x, r.y(), r.width() - object.x, r.height());
-                isDrag = true;
+                isDrag = true;                
             } else if (r.x() + r.width() + object.x < gv->x() + gv->width() && r.width() + object.x > 4) {
                 tg->setGeometry(r.x(), r.y(), r.width() + object.x, r.height());
                 isDrag = true;
