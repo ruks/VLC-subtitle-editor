@@ -1,0 +1,103 @@
+﻿test.txt
+﻿-- logger module started --
+﻿-- logger module started --
+main warning: PTS is out of range (-9915), dropping buffer
+main warning: PTS is out of range (-35908), dropping buffer
+pulse warning: starting late (-337873 us)
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+main warning: PTS is out of range (-9982), dropping buffer
+main warning: PTS is out of range (-36001), dropping buffer
+pulse warning: starting late (-17419 us)
+pulse warning: too early by 56577 us
+pulse warning: too early by 57163 us
+pulse warning: too early by 54933 us
+pulse warning: too early by 53401 us
+pulse warning: too early by 53249 us
+pulse warning: too early by 52908 us
+pulse warning: too early by 52586 us
+pulse warning: too early by 51827 us
+pulse warning: too early by 50679 us
+pulse warning: too early by 46744 us
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+﻿-- logger module started --
+mp4 warning: unknown box type btrt (incompletely loaded)
+mp4 warning: CTTS table
+omxil warning: couldn't find an omx component for codec h264
+faad warning: decoded zero sample
+avcodec warning: disabling direct rendering
+pulse warning: starting late (-37259 us)
+pulse warning: too early by 47405 us
+pulse warning: too early by 47231 us
+pulse warning: too early by 44888 us
+pulse warning: too early by 43932 us
+pulse warning: too early by 44083 us
+pulse warning: too early by 43066 us
+pulse warning: too early by 42751 us
+pulse warning: too early by 42019 us
+pulse warning: too early by 40949 us
+pulse warning: too early by 40342 us
