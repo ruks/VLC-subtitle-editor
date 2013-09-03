@@ -56,7 +56,7 @@ void player::load(QWidget *dis) {
     // create a new item
     //    m = libvlc_media_new_path(inst, "/home/rukshan/song.mp3");
     //        m = libvlc_media_new_path(inst, "/home/rukshan/video.mp4");
-    m = libvlc_media_new_path(inst, "/home/rukshan/movie.mp4");
+    m = libvlc_media_new_path(inst, "/home/rukshan/video2.FLV");
     if (!m)
         exit(EXIT_FAILURE);
     // create a media play playing environment

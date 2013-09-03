@@ -10,6 +10,9 @@
 #include <stdlib.h>
 #include <QThread>
 #include "MainWindow.h"
+#include "srtFormat.h"
+#include <algorithm>
+#include "sndfile.h"
 
 #ifndef OLDCPP
 #include <iostream>
@@ -20,6 +23,7 @@ using namespace std;
 
 int spaceQ = 1;
 MainWindow* win;
+typedef struct header_file* header_p;
 
 printbits::printbits() {
     stat = true;
@@ -31,7 +35,7 @@ printbits::printbits(const printbits& orig) {
 printbits::~printbits() {
 }
 
-void printbits::run() {
+void printbits::runs() {
     Options options;
     options.define("b|bits=i:0", "number of bits to display for each sample");
     options.define("n|samples=i:-1", "number of samples to display");
@@ -49,7 +53,7 @@ void printbits::run() {
     int start = options.getInteger("start");
     int sampledisplay = options.getInteger("samples");
     //    SoundFileRead soundfile(options.getArg(1));
-    SoundFileRead soundfile("/home/rukshan/code/sound/wav/recycle.wav");
+    SoundFileRead soundfile("/home/rukshan/audio.wav");
 
     if (bitdisplay <= 0) {
         bitdisplay = soundfile.getBitsPerSample();
@@ -74,27 +78,27 @@ void printbits::run() {
     }
     sampledisplay = sampledisplay - start;
 
-//    int v;
+    //    int v;
 
     for (i = start; i < start + sampledisplay; i++) {
         //cout << i << ":\t";
-//        for (channel = 0; channel < soundfile.getChannels(); channel++) {
-//            //printBinary(soundfile.getCurrentSample24Bit(channel), bitdisplay);
-//            //cout<<soundfile.getCurrentSample24Bit(channel);
-//            //cout << "\t";
-//            v = soundfile.getCurrentSample24Bit(channel);
-//
-//            if (channel == 0) {
-//                win->addToQueue(v / 1000);
-//                //cout<<v/1000;
-//            }
-//        }
+        //        for (channel = 0; channel < soundfile.getChannels(); channel++) {
+        //            //printBinary(soundfile.getCurrentSample24Bit(channel), bitdisplay);
+        //            //cout<<soundfile.getCurrentSample24Bit(channel);
+        //            //cout << "\t";
+        //            v = soundfile.getCurrentSample24Bit(channel);
+        //
+        //            if (channel == 0) {
+        //                win->addToQueue(v / 1000);
+        //                //cout<<v/1000;
+        //            }
+        //        }
         //        cout<<endl;
         //        cout << "\n";
         int v0, v1;
         v0 = soundfile.getCurrentSample24Bit(0);
         v1 = soundfile.getCurrentSample24Bit(1);
-        win->addToQueue(v0/1200, v1/1200);
+        win->addToQueue(v0 / 1200, v1 / 1200);
         soundfile.incrementSample();
     }
     cout << "finish" << endl;
@@ -103,4 +107,29 @@ void printbits::run() {
 
 void printbits::setMainWindow(MainWindow* m) {
     win = m;
+}
+
+void printbits::run() {
+    SNDFILE *SoundFile;
+    SF_INFO SoundFileInfo;
+    double *Samples;
+
+
+    SoundFile = sf_open("/home/rukshan/audio.wav", SFM_READ, &SoundFileInfo);
+    //open a file and put it's info into a struct "SoundFileInfo"
+
+    Samples = new double[SoundFileInfo.channels * SoundFileInfo.frames];
+    //allocate an array to hold the samples
+
+    sf_readf_double(SoundFile, Samples, SoundFileInfo.frames);
+    //fill the array with sample values, a frame equals on sample per channel 
+    int frames =SoundFileInfo.frames;
+    cout << frames << endl;
+    for (int i = 100000; i < frames; i++) {
+        //        cout << Samples[i] << endl;
+        win->addToQueue(Samples[i]*20000, Samples[i + 1]*20000);
+        //        cout<<Samples[i]*10000<<" "<<Samples[i+1]*10000<<endl;
+    }
+    cout << "finish" << endl;
+    win->update();
 }

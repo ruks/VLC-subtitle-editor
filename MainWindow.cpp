@@ -26,6 +26,7 @@
 #include <QGraphicsItem>
 #include "header/tgs.h"
 #include <QEvent>
+#include <sstream> 
 
 using namespace std;
 
@@ -40,6 +41,7 @@ player *mpw;
 subtitleSave *sub;
 TGS *t;
 TGS *tt;
+QGraphicsScene *timeLineScene;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     widget.setupUi(this);
@@ -62,6 +64,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     widget.timeCurser->setScene(tt);
     widget.timeCurser->setBackgroundBrush(QBrush(QColor(95, 95, 95, 255)));
     widget.timeCurser->setStyleSheet("background-color: transparent");
+
+    timeLineScene = new QGraphicsScene();
+    drawRuler();
 }
 
 MainWindow::~MainWindow() {
@@ -104,9 +109,11 @@ void MainWindow::updateInterface() {
         QGraphicsScene *scene1 = new QGraphicsScene();
         QGraphicsScene *scene2 = new QGraphicsScene();
 
+
         widget.view0->setScene(scene0);
         widget.view1->setScene(scene1);
         widget.graphicsView->setScene(scene2);
+        widget.timeLine->setScene(timeLineScene);
 
         widget.view0->setBackgroundBrush(QBrush(Qt::green, Qt::SolidPattern));
         widget.view1->setBackgroundBrush(QBrush(Qt::green, Qt::SolidPattern));
@@ -123,6 +130,8 @@ void MainWindow::updateInterface() {
             y1 = 255 + Q1.at(i) / 3;
             scene1->addLine(QLineF(i, x, i, y1), QPen(Qt::blue));
         }
+
+
         widget.view0->show();
         widget.view1->show();
         sta = false;
@@ -218,14 +227,40 @@ void MainWindow::on_graphicViewSlider_sliderMoved(int position) {
     Notify(ob);
 }
 
-void MainWindow::on_timeCurser_sliderPressed() {
-    cout << "opressed" << endl;
-}
-
 TGS* MainWindow::getTgs() {
     return t;
 }
 
 TGS* MainWindow::getTimeCursorTgs() {
     return tt;
+}
+
+void MainWindow::drawRuler() {
+    int x = widget.timeLine->x();
+    QGraphicsTextItem * io;
+    for (int i = 0; i < 500; i += 10) {
+        io = new QGraphicsTextItem();
+        io->setPos(x + i, 10);
+
+        int len = i;
+        std::ostringstream ostr; //output string stream
+//        ostr.`
+        ostr << len; //use the string stream just like cout,
+        string length = ostr.str();
+        io->setPlainText(QString(length.c_str()));
+        timeLineScene->addItem(io);
+        timeLineScene->addLine(QLineF(x + i, 0, x + i, 10), QPen(Qt::white));
+    }
+}
+
+void MainWindow::on_scale_in_but_clicked() {
+    widget.timeLine->scale(1.1, 1);
+    widget.view0->scale(1.1, 1);
+    widget.view1->scale(1.1, 1);
+}
+
+void MainWindow::on_scale_out_but_clicked() {
+    widget.timeLine->scale(0.9, 1);
+    widget.view0->scale(0.9, 1);
+    widget.view1->scale(0.9, 1);
 }

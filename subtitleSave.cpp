@@ -13,9 +13,12 @@
 #include <sstream>  //include this to use string streams
 #include <string>
 
+
 using namespace std;
 
 subtitleSave::subtitleSave() {
+    cout<<endl;
+    cout<<"creating"<<endl;
 }
 
 subtitleSave::subtitleSave(const subtitleSave& orig) {

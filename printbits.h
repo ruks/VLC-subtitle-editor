@@ -17,6 +17,7 @@ public:
     virtual ~printbits();
     void setMainWindow(MainWindow *m);
     bool stat;
+    void runs();
     
 private:
 

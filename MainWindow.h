@@ -22,7 +22,8 @@ public:
 private:
     Ui::MainWindow widget;
     void paintEvent(QPaintEvent*);      
-      
+    void drawRuler();
+    
 private slots:
     void updateInterface();
     void on_horizontalScrollBar_sliderMoved(int position);
@@ -32,7 +33,10 @@ private slots:
     void on_stop_clicked(); 
     void on_volumeSlider_sliderMoved(int position);
     void on_graphicViewSlider_sliderMoved(int position);
-    void on_timeCurser_sliderPressed();
+//    void on_timeCurser_sliderPressed();
+    void on_scale_in_but_clicked();
+    void on_scale_out_but_clicked();
+    
     
 public:
     void addToQueue(int a,int b);

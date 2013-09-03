@@ -8,7 +8,7 @@
 #ifndef PLAYER_H
 #define	PLAYER_H
 
-#include <QObject>
+//#include <QObject>
 #include <QPushButton>
 #include <QMainWindow>
 #include <QSlider>

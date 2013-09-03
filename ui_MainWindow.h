@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MainWindow.ui'
 **
-** Created: Mon Sep 2 13:46:19 2013
+** Created: Tue Sep 3 07:40:23 2013
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -45,9 +45,9 @@ public:
     QSlider *volumeSlider;
     QGraphicsView *timeSlotBar;
     QTextEdit *textEdit;
-    QGraphicsView *graphicsView_2;
-    QPushButton *pushButton;
-    QPushButton *pushButton_2;
+    QGraphicsView *timeLine;
+    QPushButton *scale_in_but;
+    QPushButton *scale_out_but;
     QGraphicsView *timeCurser;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -137,16 +137,16 @@ public:
         textEdit = new QTextEdit(centralwidget);
         textEdit->setObjectName(QString::fromUtf8("textEdit"));
         textEdit->setGeometry(QRect(20, 320, 631, 41));
-        graphicsView_2 = new QGraphicsView(centralwidget);
-        graphicsView_2->setObjectName(QString::fromUtf8("graphicsView_2"));
-        graphicsView_2->setGeometry(QRect(20, 10, 631, 41));
-        graphicsView_2->setStyleSheet(QString::fromUtf8("background-color: rgba(85, 0, 0,80);"));
-        pushButton = new QPushButton(centralwidget);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(660, 10, 31, 31));
-        pushButton_2 = new QPushButton(centralwidget);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-        pushButton_2->setGeometry(QRect(700, 10, 31, 31));
+        timeLine = new QGraphicsView(centralwidget);
+        timeLine->setObjectName(QString::fromUtf8("timeLine"));
+        timeLine->setGeometry(QRect(20, 10, 631, 41));
+        timeLine->setStyleSheet(QString::fromUtf8("background-color: rgba(85, 0, 0,80);"));
+        scale_in_but = new QPushButton(centralwidget);
+        scale_in_but->setObjectName(QString::fromUtf8("scale_in_but"));
+        scale_in_but->setGeometry(QRect(660, 10, 31, 31));
+        scale_out_but = new QPushButton(centralwidget);
+        scale_out_but->setObjectName(QString::fromUtf8("scale_out_but"));
+        scale_out_but->setGeometry(QRect(700, 10, 31, 31));
         timeCurser = new QGraphicsView(centralwidget);
         timeCurser->setObjectName(QString::fromUtf8("timeCurser"));
         timeCurser->setGeometry(QRect(465, 10, 4, 291));
@@ -173,9 +173,9 @@ public:
         QWidget::setTabOrder(mute, volumeSlider);
         QWidget::setTabOrder(volumeSlider, view0);
         QWidget::setTabOrder(view0, textEdit);
-        QWidget::setTabOrder(textEdit, graphicsView_2);
-        QWidget::setTabOrder(graphicsView_2, pushButton);
-        QWidget::setTabOrder(pushButton, pushButton_2);
+        QWidget::setTabOrder(textEdit, timeLine);
+        QWidget::setTabOrder(timeLine, scale_in_but);
+        QWidget::setTabOrder(scale_in_but, scale_out_but);
 
         retranslateUi(MainWindow);
 
@@ -207,8 +207,8 @@ public:
         play->setText(QApplication::translate("MainWindow", "play", 0, QApplication::UnicodeUTF8));
         stop->setText(QApplication::translate("MainWindow", "stop", 0, QApplication::UnicodeUTF8));
         mute->setText(QApplication::translate("MainWindow", "mute", 0, QApplication::UnicodeUTF8));
-        pushButton->setText(QApplication::translate("MainWindow", "PushButton", 0, QApplication::UnicodeUTF8));
-        pushButton_2->setText(QApplication::translate("MainWindow", "PushButton", 0, QApplication::UnicodeUTF8));
+        scale_in_but->setText(QApplication::translate("MainWindow", "+", 0, QApplication::UnicodeUTF8));
+        scale_out_but->setText(QApplication::translate("MainWindow", "-", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

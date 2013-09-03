@@ -249,7 +249,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QGraphicsView" name="graphicsView_2">
+   <widget class="QGraphicsView" name="timeLine">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -262,7 +262,7 @@
      <string notr="true">background-color: rgba(85, 0, 0,80);</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="scale_in_but">
     <property name="geometry">
      <rect>
       <x>660</x>
@@ -272,10 +272,10 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>+</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="scale_out_but">
     <property name="geometry">
      <rect>
       <x>700</x>
@@ -285,7 +285,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>-</string>
     </property>
    </widget>
    <widget class="QGraphicsView" name="timeCurser">
@@ -338,9 +338,9 @@
   <tabstop>volumeSlider</tabstop>
   <tabstop>view0</tabstop>
   <tabstop>textEdit</tabstop>
-  <tabstop>graphicsView_2</tabstop>
-  <tabstop>pushButton</tabstop>
-  <tabstop>pushButton_2</tabstop>
+  <tabstop>timeLine</tabstop>
+  <tabstop>scale_in_but</tabstop>
+  <tabstop>scale_out_but</tabstop>
  </tabstops>
  <resources/>
  <connections/>
