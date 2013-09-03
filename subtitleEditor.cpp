@@ -25,6 +25,7 @@ bool isDrag = false;
 bool isMarginX = false;
 bool isMarginY = false;
 
+
 subtitleEditor::subtitleEditor() {
     mplayer = new player();
 

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MainWindow.ui'
 **
-** Created: Tue Sep 3 07:40:23 2013
+** Created: Tue Sep 3 11:39:56 2013
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -64,12 +64,12 @@ public:
         view0->setObjectName(QString::fromUtf8("view0"));
         view0->setGeometry(QRect(20, 60, 631, 121));
         view0->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-        view0->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        view0->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         view1 = new QGraphicsView(centralwidget);
         view1->setObjectName(QString::fromUtf8("view1"));
         view1->setGeometry(QRect(20, 180, 631, 121));
         view1->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-        view1->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        view1->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
         tableWidget = new QTableWidget(centralwidget);
         if (tableWidget->columnCount() < 4)
             tableWidget->setColumnCount(4);

@@ -23,6 +23,8 @@ private:
     Ui::MainWindow widget;
     void paintEvent(QPaintEvent*);      
     void drawRuler();
+    void drawGraph();
+    void addToGraph();
     
 private slots:
     void updateInterface();
@@ -46,6 +48,8 @@ public:
     void setPlayer(player *p);
     TGS* getTgs();
     TGS* getTimeCursorTgs();
+    void setSampleList(short int *sam,int len);
+    
 };
 
 #endif	/* _MAINWINDOW_H */

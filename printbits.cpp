@@ -112,24 +112,25 @@ void printbits::setMainWindow(MainWindow* m) {
 void printbits::run() {
     SNDFILE *SoundFile;
     SF_INFO SoundFileInfo;
-    double *Samples;
+    short int *Samples;
 
 
     SoundFile = sf_open("/home/rukshan/audio.wav", SFM_READ, &SoundFileInfo);
     //open a file and put it's info into a struct "SoundFileInfo"
 
-    Samples = new double[SoundFileInfo.channels * SoundFileInfo.frames];
+    Samples = new short int[SoundFileInfo.channels * SoundFileInfo.frames];
     //allocate an array to hold the samples
 
-    sf_readf_double(SoundFile, Samples, SoundFileInfo.frames);
+    sf_readf_short(SoundFile, Samples, SoundFileInfo.frames);
     //fill the array with sample values, a frame equals on sample per channel 
-    int frames =SoundFileInfo.frames;
-    cout << frames << endl;
+    int frames = SoundFileInfo.frames;
+    //    cout << frames << endl;
     for (int i = 100000; i < frames; i++) {
-        //        cout << Samples[i] << endl;
-        win->addToQueue(Samples[i]*20000, Samples[i + 1]*20000);
-        //        cout<<Samples[i]*10000<<" "<<Samples[i+1]*10000<<endl;
+//        cout << Samples[i] << endl;
+//        cout << Samples[i]*10000 << " " << Samples[i + 1]*10000 << endl;
     }
-    cout << "finish" << endl;
-    win->update();
+    //    cout << "finish" << endl;
+    //    win->update();
+    //    cout<<SoundFileInfo.frames<<endl;
+    win->setSampleList(Samples, SoundFileInfo.frames);
 }

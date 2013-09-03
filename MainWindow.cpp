@@ -42,6 +42,11 @@ subtitleSave *sub;
 TGS *t;
 TGS *tt;
 QGraphicsScene *timeLineScene;
+QGraphicsScene *scene0;
+QGraphicsScene *scene1;
+QGraphicsScene *scene2;
+short int *Samples;
+double SampleLength;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     widget.setupUi(this);
@@ -67,6 +72,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     timeLineScene = new QGraphicsScene();
     drawRuler();
+    drawGraph();
+    //    addToGraph();
 }
 
 MainWindow::~MainWindow() {
@@ -103,42 +110,9 @@ void MainWindow::addToQueue(int a0, int a1) {
 }
 
 void MainWindow::updateInterface() {
-    if (sta) {
-
-        QGraphicsScene *scene0 = new QGraphicsScene();
-        QGraphicsScene *scene1 = new QGraphicsScene();
-        QGraphicsScene *scene2 = new QGraphicsScene();
-
-
-        widget.view0->setScene(scene0);
-        widget.view1->setScene(scene1);
-        widget.graphicsView->setScene(scene2);
-        widget.timeLine->setScene(timeLineScene);
-
-        widget.view0->setBackgroundBrush(QBrush(Qt::green, Qt::SolidPattern));
-        widget.view1->setBackgroundBrush(QBrush(Qt::green, Qt::SolidPattern));
-        widget.graphicsView->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
-
-        //        QGraphicsRectItem *rect=new QGraphicsRectItem(0,0,100,100);
-        //        rect->setBrush(QBrush(Qt::green));
-
-        int x, y0, y1;
-        for (int i = 0; i < Q0.size(); i++) {
-            y0 = 255 + Q0.at(i) / 3;
-            x = 255;
-            scene0->addLine(QLineF(i, x, i, y0), QPen(Qt::blue));
-            y1 = 255 + Q1.at(i) / 3;
-            scene1->addLine(QLineF(i, x, i, y1), QPen(Qt::blue));
-        }
-
-
-        widget.view0->show();
-        widget.view1->show();
-        sta = false;
-    }
-    h0->setMaximum(20000);
-    h1->setMaximum(20000);
-    widget.horizontalScrollBar->setMaximum(h0->maximum());
+    //    h0->setMaximum(20000);
+    //    h1->setMaximum(20000);
+    //    widget.horizontalScrollBar->setMaximum(h0->maximum());
     widget.graphicViewSlider->setValue(mpw->getPosition());
 
     int a = QCursor::pos().x();
@@ -182,9 +156,11 @@ void MainWindow::update() {
 }
 
 void MainWindow::on_horizontalScrollBar_sliderMoved(int position) {
+//    addToGraph();
     h1->setValue(position);
     h0->setValue(position);
-    //    Notify("wave_slider");
+    //        Notify("wave_slider");
+    cout << "move" << endl;
 }
 
 void MainWindow::on_srt_clicked() {
@@ -244,7 +220,7 @@ void MainWindow::drawRuler() {
 
         int len = i;
         std::ostringstream ostr; //output string stream
-//        ostr.`
+        //        ostr.`
         ostr << len; //use the string stream just like cout,
         string length = ostr.str();
         io->setPlainText(QString(length.c_str()));
@@ -263,4 +239,66 @@ void MainWindow::on_scale_out_but_clicked() {
     widget.timeLine->scale(0.9, 1);
     widget.view0->scale(0.9, 1);
     widget.view1->scale(0.9, 1);
+}
+
+void MainWindow::setSampleList(short int *sam, int len) {
+    Samples = sam;
+    SampleLength = len;
+    
+    h1->setMaximum(10000);
+    h0->setMaximum(10000);
+    widget.horizontalScrollBar->setMaximum(10000);
+//    for (int i = 100000; i < 110000; i++) {
+//        cout<<Samples[i]/100<<endl;
+//    }
+    addToGraph();
+        cout<<"config"<<endl;
+}
+
+void MainWindow::drawGraph() {
+    scene0 = new QGraphicsScene();
+    scene1 = new QGraphicsScene();
+    scene2 = new QGraphicsScene();
+
+
+    widget.view0->setScene(scene0);
+    widget.view1->setScene(scene1);
+    widget.graphicsView->setScene(scene2);
+    widget.timeLine->setScene(timeLineScene);
+
+    widget.view0->setBackgroundBrush(QBrush(Qt::green, Qt::SolidPattern));
+    widget.view1->setBackgroundBrush(QBrush(Qt::green, Qt::SolidPattern));
+    widget.graphicsView->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
+
+    widget.view0->show();
+    widget.view1->show();
+
+    //    widget.view0->setLineWidth(1000);
+    //    widget.view1->setLineWidth(1000);
+
+    //    widget.horizontalScrollBar->setValue(widget.view0->horizontalScrollBar()->value());
+}
+
+void MainWindow::addToGraph() {
+    int v = widget.horizontalScrollBar->value();
+    int x, y0, y1;
+    x = 255;
+    int s=1000;
+    int xx;
+//    v=1;
+    for (int i = 0; i < SampleLength/30; i++) {
+        xx=i;
+        y0 = 255 + Samples[i]/200;
+        scene0->addLine(QLineF(xx, x, xx, y0), QPen(Qt::blue));
+        y1 = 255 + Samples[i + 1]/200;
+        scene1->addLine(QLineF(xx, x, xx, y1), QPen(Qt::blue));
+//        cout <<" y "<<y0<< " v "<<v<< endl;
+//        cout<<"rukshan"<<endl;
+    }
+    cout << "over" << endl;
+      widget.horizontalScrollBar->setMaximum(h1->maximum());
+//    widget.view0->setScene(scene0);
+//    widget.view1->setScene(scene1);
+    widget.view0->show();
+    widget.view1->show();
 }
