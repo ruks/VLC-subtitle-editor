@@ -26,6 +26,8 @@ public:
     void saveAsSRT(node nodes[]);
     void saveAsSSA();
     void saveFile(string s);
+    void readSubtitle();
+    bool isNewLine(string s);
 };
 
 #endif	/* SUBTITLESAVE_H */

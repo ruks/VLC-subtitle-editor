@@ -6,6 +6,7 @@
  */
 
 #include "subtitleSave.h"
+#include "subtitleEditor.h"
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
@@ -17,8 +18,7 @@
 using namespace std;
 
 subtitleSave::subtitleSave() {
-    cout<<endl;
-    cout<<"creating"<<endl;
+    cout << endl;
 }
 
 subtitleSave::subtitleSave(const subtitleSave& orig) {
@@ -46,4 +46,34 @@ void subtitleSave::saveAsSRT(node nodes[]) {
 
 void subtitleSave::saveAsSSA() {
 
+}
+
+void subtitleSave::readSubtitle() {
+    string line;
+    ifstream myfile("/home/rukshan/movie.srt");
+    if (myfile.is_open()) {
+        while (myfile.good()) {
+            getline(myfile, line);
+            if (line.c_str() == "\n") {
+                cout << "line" << endl;
+            } else {
+                //                cout << line << endl;
+            }
+            isNewLine(line);
+        }
+        myfile.close();
+    } else {
+        cout << "Unable to open file";
+    }
+}
+
+bool subtitleSave::isNewLine(string s) {
+//    char *c = s.c_str();
+//    int i = 0;
+//    for (int i = 0; i < sizeof (c); i++) {
+//        if (c[i] == "") {
+//            cout << "line" << endl;
+//        }
+//    }
+    return true;
 }

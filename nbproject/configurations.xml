@@ -29,8 +29,12 @@
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/MainWindow.cpp</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/MainWindow.h</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/MainWindow.ui</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/source/MyGraphicScene.cpp</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/header/MyGraphicScene.h</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/Observable.cpp</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/Observable.h</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/source/SubtitleRead.cpp</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/header/SubtitleRead.h</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/player.cpp</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/player.h</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/printbits.cpp</itemPath>

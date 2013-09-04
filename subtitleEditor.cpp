@@ -37,6 +37,7 @@ subtitleEditor::subtitleEditor() {
     waveGen->start();
 
     subSave = new subtitleSave();
+//    subSave->readSubtitle();
 
     window->Attach(this);
     window->getTgs()->Attach(this);

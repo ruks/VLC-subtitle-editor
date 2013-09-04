@@ -48,6 +48,11 @@ extern "C" {
         int subchunk2_size; // subchunk2_size denotes the number of samples.
     } header;
 
+    struct srtFormat {
+        int id;
+        char text[1000];
+    };
+
 #ifdef	__cplusplus
 }
 #endif
