@@ -26,9 +26,11 @@
 #include <QGraphicsItem>
 #include "header/tgs.h"
 #include "header/MyGraphicScene.h"
+#include "header/SubtitleRead.h"
 #include <QEvent>
-#include <sstream> 
-//#include <QGLw>
+#include <sstream>
+#include <math.h> 
+#include <QUrl>
 using namespace std;
 
 QQueue<int8_t> Q0;
@@ -51,6 +53,7 @@ double SampleLength;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     widget.setupUi(this);
+    setAcceptDrops(true);
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateInterface()));
     timer->start(100);
@@ -75,6 +78,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     drawRuler();
     drawGraph();
     //    addToGraph();
+    SubtitleRead *read = new SubtitleRead();
+    read->open();
+    setSubtitle(read->getSubList());
+
 }
 
 MainWindow::~MainWindow() {
@@ -161,8 +168,8 @@ void MainWindow::on_horizontalScrollBar_sliderMoved(int position) {
     h1->setValue(position);
     h0->setValue(position);
     //        Notify("wave_slider");
-//    cout << position <<" "<<h1->value() <<endl;
-    
+    //    cout << position <<" "<<h1->value() <<endl;
+
 }
 
 void MainWindow::on_srt_clicked() {
@@ -247,14 +254,14 @@ void MainWindow::setSampleList(short int *sam, int len) {
     Samples = sam;
     SampleLength = len;
 
-//    h1->setMaximum(10000);
-//    h0->setMaximum(10000);
-//    widget.horizontalScrollBar->setMaximum(10000);
+    //    h1->setMaximum(10000);
+    //    h0->setMaximum(10000);
+    //    widget.horizontalScrollBar->setMaximum(10000);
     addToGraph();
     //    cout<<len<<endl;
-//    for (int i = 0; i < len; i++) {
-        //        cout<<Samples[i]<<endl;
-//    }
+    //    for (int i = 0; i < len; i++) {
+    //        cout<<Samples[i]<<endl;
+    //    }
 
 
 }
@@ -291,7 +298,7 @@ void MainWindow::addToGraph() {
     int s = 1000;
     int xx;
     //    v=1;
-    for (int i = 0; i < SampleLength ; i++) {
+    for (int i = 0; i < SampleLength; i++) {
         xx = i;
         y0 = 255 + Samples[i] / 20;
         scene0->addLine(QLineF(xx, x, xx, y0), QPen(Qt::blue));
@@ -301,6 +308,57 @@ void MainWindow::addToGraph() {
     cout << "over" << endl;
     widget.view0->show();
     widget.view1->show();
+
+    //    cout<<h1->maximum()<<endl;
+}
+
+void MainWindow::setSubtitle(vector<srtFormat> v) {
+    //    widget.tableWidget->itemAt(1,1)->setData(0,"rukshan");
+    //    widget.tableWidget->insertRow(0);
+    //    widget.tableWidget->insertRow(2);
+    //    widget.tableWidget->insertRow(4);
+    //    widget.tableWidget->setItem(0, 3, new QTableWidgetItem(v.at(0).text));
+    //    widget.tableWidget->insertRow(v.at(2).id);
+    //    widget.tableWidget->setItem(1, 3, new QTableWidgetItem(v.at(1).text));
+    //    widget.tableWidget->item(0,0);
+    //    QString s=widget.tableWidget->item(0,0)->text();
+    //    cout<<s.toStdString()<<endl;
+    long st;
+    long et;
+    long dt;
+
+    for (int i = 0; i < v.size(); i++) {
+        srtFormat srt = v.at(i);
+        widget.tableWidget->insertRow(srt.id);
+        QString s = QString::fromStdString(srt.text);
+
+        st = (atoi(srt.startH.c_str())*3600 + atoi(srt.startM.c_str())*60 + atoi(srt.startS.c_str()))*1000 + atoi(srt.startMs.c_str());
+        et = (atoi(srt.stopH.c_str())*3600 + atoi(srt.stopM.c_str())*60 + atoi(srt.stopS.c_str()))*1000 + atoi(srt.stopMs.c_str());
+
+        QString sTime = QString::fromStdString(srt.startH + ":" + srt.startM + ":" + srt.startS + ":" + srt.startMs);
+        QString eTime = QString::fromStdString(srt.stopH + ":" + srt.stopM + ":" + srt.stopS + ":" + srt.stopMs);
+        dt = et - st;
+        QString dTime = QString::number(dt, 10);
+
+        widget.tableWidget->setItem(i, 0, new QTableWidgetItem(sTime));
+        widget.tableWidget->setItem(i, 1, new QTableWidgetItem(eTime));
+        widget.tableWidget->setItem(i, 2, new QTableWidgetItem(dTime));
+        widget.tableWidget->setItem(i, 3, new QTableWidgetItem(s.trimmed().simplified()));
+    }
+
+
+}
+
+void MainWindow::dragEnterEvent(QDragEnterEvent* e) {
+    if (e->mimeData()->hasFormat("text/uri-list"))
+        e->acceptProposedAction();
+//    cout<<e->mimeData()->formats()<<endl;
+//    widget.textEdit->setText(e->mimeData()->text());
+}
+
+void MainWindow::dropEvent(QDropEvent* e) {
+    QList<QUrl> urls = e->mimeData()->urls();
+    QString fileName = urls.first().toLocalFile();
     
-//    cout<<h1->maximum()<<endl;
+        widget.textEdit->setText(fileName);
 }

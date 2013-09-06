@@ -7,6 +7,8 @@
 
 #ifndef SUBTITLEREAD_H
 #define	SUBTITLEREAD_H
+#include <vector>
+#include <srtFormat.h>
 
 class SubtitleRead {
 public:
@@ -15,6 +17,7 @@ public:
     virtual ~SubtitleRead();
     void open();
     void decodeToSRT(char line[]);
+    vector<srtFormat> getSubList();
 private:
 
 };

@@ -50,7 +50,16 @@ extern "C" {
 
     struct srtFormat {
         int id;
-        char text[1000];
+        string text;
+        string startH;
+        string startM;
+        string startS;
+        string startMs;
+
+        string stopH;
+        string stopM;
+        string stopS;
+        string stopMs;
     };
 
 #ifdef	__cplusplus

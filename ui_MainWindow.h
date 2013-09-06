@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MainWindow.ui'
 **
-** Created: Wed Sep 4 22:39:32 2013
+** Created: Fri Sep 6 19:31:10 2013
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -81,18 +81,6 @@ public:
         tableWidget->setHorizontalHeaderItem(2, __qtablewidgetitem2);
         QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(3, __qtablewidgetitem3);
-        if (tableWidget->rowCount() < 5)
-            tableWidget->setRowCount(5);
-        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
-        tableWidget->setVerticalHeaderItem(0, __qtablewidgetitem4);
-        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
-        tableWidget->setVerticalHeaderItem(1, __qtablewidgetitem5);
-        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
-        tableWidget->setVerticalHeaderItem(2, __qtablewidgetitem6);
-        QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
-        tableWidget->setVerticalHeaderItem(3, __qtablewidgetitem7);
-        QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
-        tableWidget->setVerticalHeaderItem(4, __qtablewidgetitem8);
         tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
         tableWidget->setGeometry(QRect(20, 370, 941, 231));
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
@@ -193,16 +181,6 @@ public:
         ___qtablewidgetitem2->setText(QApplication::translate("MainWindow", "Duration", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem3 = tableWidget->horizontalHeaderItem(3);
         ___qtablewidgetitem3->setText(QApplication::translate("MainWindow", "Text", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem4 = tableWidget->verticalHeaderItem(0);
-        ___qtablewidgetitem4->setText(QApplication::translate("MainWindow", "1", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem5 = tableWidget->verticalHeaderItem(1);
-        ___qtablewidgetitem5->setText(QApplication::translate("MainWindow", "2", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem6 = tableWidget->verticalHeaderItem(2);
-        ___qtablewidgetitem6->setText(QApplication::translate("MainWindow", "3", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem7 = tableWidget->verticalHeaderItem(3);
-        ___qtablewidgetitem7->setText(QApplication::translate("MainWindow", "4", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem8 = tableWidget->verticalHeaderItem(4);
-        ___qtablewidgetitem8->setText(QApplication::translate("MainWindow", "6", 0, QApplication::UnicodeUTF8));
         srt->setText(QApplication::translate("MainWindow", "srt", 0, QApplication::UnicodeUTF8));
         play->setText(QApplication::translate("MainWindow", "play", 0, QApplication::UnicodeUTF8));
         stop->setText(QApplication::translate("MainWindow", "stop", 0, QApplication::UnicodeUTF8));

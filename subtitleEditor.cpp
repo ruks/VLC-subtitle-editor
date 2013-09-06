@@ -25,7 +25,6 @@ bool isDrag = false;
 bool isMarginX = false;
 bool isMarginY = false;
 
-
 subtitleEditor::subtitleEditor() {
     mplayer = new player();
 
@@ -37,7 +36,7 @@ subtitleEditor::subtitleEditor() {
     waveGen->start();
 
     subSave = new subtitleSave();
-//    subSave->readSubtitle();
+    //    subSave->readSubtitle();
 
     window->Attach(this);
     window->getTgs()->Attach(this);
@@ -53,8 +52,12 @@ subtitleEditor::~subtitleEditor() {
 
 void subtitleEditor::Update(dataObject object) {
     if (object.object == "play_btn") {
-        mplayer->load(window->getGraphicView().graphicsView);
-        mplayer->play(window->getGraphicView().play);
+        if (mplayer->getMP()!=NULL) {
+            mplayer->play(window->getGraphicView().play);
+        } else {
+            mplayer->load(window->getGraphicView().graphicsView);
+            mplayer->play(window->getGraphicView().play);
+        }
     } else if (object.object == "stop_btn") {
         mplayer->stop();
     } else if (object.object == "on_volumeSlider_sliderMoved") {
@@ -74,7 +77,7 @@ void subtitleEditor::Update(dataObject object) {
         if (isMarginX || isMarginY) {
             if (isMarginX && r.x() + object.x > gv->x() && r.width() - object.x > 4) {
                 tg->setGeometry(r.x() + object.x, r.y(), r.width() - object.x, r.height());
-                isDrag = true;                
+                isDrag = true;
             } else if (r.x() + r.width() + object.x < gv->x() + gv->width() && r.width() + object.x > 4) {
                 tg->setGeometry(r.x(), r.y(), r.width() + object.x, r.height());
                 isDrag = true;
@@ -97,7 +100,7 @@ void subtitleEditor::Update(dataObject object) {
         QApplication::setOverrideCursor(Qt::ArrowCursor);
         //        isDrag = false;
     } else if (object.object == "timeCuser" && object.msg == "time_slot_move") {
-//        cout << object.object << endl;
+        //        cout << object.object << endl;
         int wx = window->x();
         QGraphicsView *tg;
         tg = window->getGraphicView().timeCurser;

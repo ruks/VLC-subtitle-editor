@@ -12,6 +12,7 @@
 #include <string.h>
 #include <vector>
 #include <srtFormat.h>
+#include <QString>
 
 int captionNumber = 0;
 int lineCounter = 0;
@@ -38,7 +39,7 @@ void SubtitleRead::open() {
         return;
 
     while (fgets(buf, 1000, ptr_file) != NULL) {
-        //        printf("%s", buf);
+        //                printf("%s", buf);
         decodeToSRT(buf);
     }
     fclose(ptr_file);
@@ -63,14 +64,27 @@ void SubtitleRead::decodeToSRT(char line[]) {
 
     if (strstr(line, c)) {
         //        printf("%s", line);
+        string time = line;
+        v.at(captionNumber - 1).startH = time.substr(0, 2);
+        v.at(captionNumber - 1).startM = time.substr(3, 2);
+        v.at(captionNumber - 1).startS = time.substr(6, 2);
+        v.at(captionNumber - 1).startMs = time.substr(9, 3);
+
+        v.at(captionNumber - 1).stopH = time.substr(17, 2);
+        v.at(captionNumber - 1).stopM = time.substr(20, 2);
+        v.at(captionNumber - 1).stopS = time.substr(23, 2);
+        v.at(captionNumber - 1).stopMs = time.substr(26, 3);
+
         return;
     }
 
     if (strlen(line) > 2) {
-        strcat(v.at(captionNumber - 1).text, line);
+        //        strcat(v.at(captionNumber - 1).text, line);
+        v.at(captionNumber - 1).text += line;
     }
 
 }
 
-
-
+vector<srtFormat> SubtitleRead::getSubList() {
+    return v;
+}

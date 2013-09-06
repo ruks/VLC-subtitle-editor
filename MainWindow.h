@@ -13,6 +13,10 @@
 #include "Observable.h"
 #include "player.h"
 #include "header/tgs.h"
+#include <vector>
+#include <srtFormat.h>
+#include <QDragEnterEvent>
+#include <QDropEvent>
 
 class MainWindow : public QMainWindow,public Observable {
     Q_OBJECT
@@ -49,6 +53,11 @@ public:
     TGS* getTgs();
     TGS* getTimeCursorTgs();
     void setSampleList(short int *sam,int len);
+    void setSubtitle(vector<srtFormat> v);
+    
+    protected:
+        void dragEnterEvent(QDragEnterEvent *e);
+        void dropEvent(QDropEvent *e);
     
 };
 
