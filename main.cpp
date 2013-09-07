@@ -19,18 +19,9 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-    // initialize resources, if needed
-    // Q_INIT_RESOURCE(resfile);
     QApplication app(argc, argv);
-
     subtitleEditor *edit = new subtitleEditor();
-//    SubtitleRead *r=new SubtitleRead();
-//    r->open();
-//    cout<<r->getSubList().at(1).text<<endl;
-    
-//    string s1="rrr";
-//    string s2="100";
-    
-//    cout<<atoi(s2.c_str())<<endl;
+    //    SubtitleRead *r=new SubtitleRead();
+    //    r->open("/home/rukshan/movie.srt");
     return app.exec();
 }

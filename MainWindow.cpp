@@ -50,6 +50,7 @@ QGraphicsScene *scene1;
 QGraphicsScene *scene2;
 short int *Samples;
 double SampleLength;
+SubtitleRead *reads;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     widget.setupUi(this);
@@ -78,9 +79,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     drawRuler();
     drawGraph();
     //    addToGraph();
-    SubtitleRead *read = new SubtitleRead();
-    read->open();
-    setSubtitle(read->getSubList());
+    reads = new SubtitleRead();
+//    reads->open("/home/rukshan/movie.srt");
+//    reads->open("input.srt");
+//    setSubtitle(reads->getSubList());
 
 }
 
@@ -323,13 +325,15 @@ void MainWindow::setSubtitle(vector<srtFormat> v) {
     //    widget.tableWidget->item(0,0);
     //    QString s=widget.tableWidget->item(0,0)->text();
     //    cout<<s.toStdString()<<endl;
+    widget.tableWidget->setRowCount(0);
+    
     long st;
     long et;
     long dt;
 
     for (int i = 0; i < v.size(); i++) {
         srtFormat srt = v.at(i);
-        widget.tableWidget->insertRow(srt.id);
+        widget.tableWidget->insertRow(i);
         QString s = QString::fromStdString(srt.text);
 
         st = (atoi(srt.startH.c_str())*3600 + atoi(srt.startM.c_str())*60 + atoi(srt.startS.c_str()))*1000 + atoi(srt.startMs.c_str());
@@ -352,13 +356,18 @@ void MainWindow::setSubtitle(vector<srtFormat> v) {
 void MainWindow::dragEnterEvent(QDragEnterEvent* e) {
     if (e->mimeData()->hasFormat("text/uri-list"))
         e->acceptProposedAction();
-//    cout<<e->mimeData()->formats()<<endl;
-//    widget.textEdit->setText(e->mimeData()->text());
+    //    cout<<e->mimeData()->formats()<<endl;
+    //    widget.textEdit->setText(e->mimeData()->text());
 }
 
 void MainWindow::dropEvent(QDropEvent* e) {
     QList<QUrl> urls = e->mimeData()->urls();
     QString fileName = urls.first().toLocalFile();
-    
-        widget.textEdit->setText(fileName);
+
+    string s=strchr(fileName.toStdString().c_str(),'.');
+    widget.textEdit->setText(QString::fromStdString(s));
+    if(s==".srt"){
+    reads->open(fileName.toStdString());
+    setSubtitle(reads->getSubList());
+    }
 }

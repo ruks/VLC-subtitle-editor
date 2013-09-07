@@ -15,7 +15,7 @@ public:
     SubtitleRead();
     SubtitleRead(const SubtitleRead& orig);
     virtual ~SubtitleRead();
-    void open();
+    void open(string filePath);
     void decodeToSRT(char line[]);
     vector<srtFormat> getSubList();
 private:
