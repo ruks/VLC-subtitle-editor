@@ -54,6 +54,9 @@ public:
     TGS* getTimeCursorTgs();
     void setSampleList(short int *sam,int len);
     void setSubtitle(vector<srtFormat> v);
+    void setPlayBtnText(string msg);
+    int getVolumeLevel();
+    void setVolumeLevel(int val);
     
     protected:
         void dragEnterEvent(QDragEnterEvent *e);

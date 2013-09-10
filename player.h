@@ -9,13 +9,16 @@
 #define	PLAYER_H
 
 //#include <QObject>
-#include <QPushButton>
 #include <QMainWindow>
 #include <QSlider>
 #include <QLabel>
 #include <vlc/vlc.h>
+#include <iostream>
+#include "Observable.h"
 
-class player {
+using namespace std;
+
+class player : public Observable {
 public:
     player();
     player(const player& orig);
@@ -23,21 +26,20 @@ public:
     //private:
 
 public:
-    void play(QPushButton *bu);
+    void play();
     void pause();
     void stop();
     int getTime();
     int getLength();
     int getPer();
     bool isPLay();
-    void load(QWidget *dis);
     int getPosition();
     void changePosition(int pos);
     void changeVolume(int val);
-    void mute(QSlider *sli);
-    int setStartTime(QLabel *startTimeLabel);
+    void mute(int val);
+    int setStartTime();
     libvlc_media_player_t *getMP();
-
+    libvlc_media_player_t *open(string path);
 };
 
 #endif	/* PLAYER_H */

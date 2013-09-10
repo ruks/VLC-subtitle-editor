@@ -15,13 +15,19 @@
 #include "subtitleEditor.h"
 #include "header/SubtitleRead.h"
 #include "iostream"
+#include "FileSelector.h"
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     subtitleEditor *edit = new subtitleEditor();
+//    FileSelector s;
+//    s.openFile();
     //    SubtitleRead *r=new SubtitleRead();
     //    r->open("/home/rukshan/movie.srt");
+//    string s="ruk";
+//    string c="RUK";
+//    cout<<strcasecmp(s.c_str(),c.c_str())<<endl;
     return app.exec();
 }

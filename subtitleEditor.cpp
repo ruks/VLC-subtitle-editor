@@ -4,7 +4,9 @@
  * 
  * Created on August 31, 2013, 9:25 AM
  */
-
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
 #include "subtitleEditor.h"
 #include "MainWindow.h"
 #include "smem.h"
@@ -12,6 +14,11 @@
 #include "printbits.h"
 #include <iostream>
 #include <qt4/QtGui/qevent.h>
+#include "QFileDialog"
+#include "FileSelector.h"
+#include <QString>
+#include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -19,6 +26,8 @@ MainWindow *window;
 player *mplayer;
 printbits *waveGen;
 subtitleSave *subSave;
+FileSelector *fileBrowser;
+
 Ui::MainWindow widjet;
 int pre = 0;
 bool isDrag = false;
@@ -37,14 +46,18 @@ subtitleEditor::subtitleEditor() {
 
     subSave = new subtitleSave();
     //    subSave->readSubtitle();
+    fileBrowser = new FileSelector();
+    fileBrowser->Attach(this);
 
     window->Attach(this);
     window->getTgs()->Attach(this);
     window->getTimeCursorTgs()->Attach(this);
     window->show();
+    mplayer->Attach(this);
 }
 
 subtitleEditor::subtitleEditor(const subtitleEditor& orig) {
+    //    orig=orig;
 }
 
 subtitleEditor::~subtitleEditor() {
@@ -52,12 +65,9 @@ subtitleEditor::~subtitleEditor() {
 
 void subtitleEditor::Update(dataObject object) {
     if (object.object == "play_btn") {
-        if (mplayer->getMP()!=NULL) {
-            mplayer->play(window->getGraphicView().play);
-        } else {
-            mplayer->load(window->getGraphicView().graphicsView);
-            mplayer->play(window->getGraphicView().play);
-        }
+        mplayer->play();
+    } else if (object.object == "mute_btn") {
+        mplayer->mute(window->getVolumeLevel());
     } else if (object.object == "stop_btn") {
         mplayer->stop();
     } else if (object.object == "on_volumeSlider_sliderMoved") {
@@ -65,8 +75,6 @@ void subtitleEditor::Update(dataObject object) {
     } else if (object.object == "on_graphicViewSlider_sliderMoved") {
         mplayer->changePosition(object.val);
     } else if (object.object == "timeSlotBar" && object.msg == "time_slot_move") {
-
-        int wx = window->x();
         QGraphicsView *tg;
         tg = window->getGraphicView().timeSlotBar;
         int newX = tg->x() + object.x;
@@ -101,7 +109,7 @@ void subtitleEditor::Update(dataObject object) {
         //        isDrag = false;
     } else if (object.object == "timeCuser" && object.msg == "time_slot_move") {
         //        cout << object.object << endl;
-        int wx = window->x();
+        //        int wx = window->x();
         QGraphicsView *tg;
         tg = window->getGraphicView().timeCurser;
         QGraphicsView *gv;
@@ -143,6 +151,30 @@ void subtitleEditor::Update(dataObject object) {
         } else if (object.msg == "outside") {
             QApplication::setOverrideCursor(Qt::ArrowCursor);
         }
+    } else if (object.object == "player") {
+        if (object.msg == "media_explorer") {
+            cout << object.msg << endl;
+            fileBrowser->openFile();
+        } else if (object.msg == "play") {
+            window->setPlayBtnText("play");
+        } else if (object.msg == "pause") {
+            window->setPlayBtnText("pause");
+        } else if (object.msg == "mute") {
+            window->setVolumeLevel(object.val);
+        }
+    } else if (object.object == "file_selecter") {
+        libvlc_media_player_t * m;
+        m=mplayer->open(object.msg);
+        QWidget* qw;
+        qw=window->getGraphicView().graphicsView;
+#if defined(Q_OS_MAC)
+        libvlc_media_player_set_nsobject(m, (void *) qw->winId());
+#elif defined(Q_OS_UNIX)
+        libvlc_media_player_set_xwindow(m,qw->winId());
+#elif defined(Q_OS_WIN)
+        libvlc_media_player_set_hwnd(m, qw->winId());
+#endif
+
     }
     //    cout << object.object << endl;
 }

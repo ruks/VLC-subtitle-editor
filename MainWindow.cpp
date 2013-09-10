@@ -27,6 +27,7 @@
 #include "header/tgs.h"
 #include "header/MyGraphicScene.h"
 #include "header/SubtitleRead.h"
+#include "qstringbuilder.h"
 #include <QEvent>
 #include <sstream>
 #include <math.h> 
@@ -62,6 +63,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     h0 = widget.view0->horizontalScrollBar();
     h1 = widget.view1->horizontalScrollBar();
+    
+    widget.volumeSlider->setMaximum(200);
 
     widget.tableWidget->setColumnWidth(3, widget.tableWidget->width() - 380);
     widget.graphicViewSlider->setMaximum(1000);
@@ -80,9 +83,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     drawGraph();
     //    addToGraph();
     reads = new SubtitleRead();
-//    reads->open("/home/rukshan/movie.srt");
-//    reads->open("input.srt");
-//    setSubtitle(reads->getSubList());
+    //    reads->open("/home/rukshan/movie.srt");
+    //    reads->open("input.srt");
+    //    setSubtitle(reads->getSubList());
 
 }
 
@@ -192,11 +195,15 @@ void MainWindow::on_play_clicked() {
 }
 
 void MainWindow::on_stop_clicked() {
-    //    Notify("stop_btn");
+    dataObject ob;
+    ob.object = "stop_btn";
+    Notify(ob);
 }
 
 void MainWindow::on_mute_clicked() {
-    //    Notify("mute_btn");
+    dataObject ob;
+    ob.object = "mute_btn";
+    Notify(ob);
 }
 
 void MainWindow::on_volumeSlider_sliderMoved(int position) {
@@ -326,7 +333,7 @@ void MainWindow::setSubtitle(vector<srtFormat> v) {
     //    QString s=widget.tableWidget->item(0,0)->text();
     //    cout<<s.toStdString()<<endl;
     widget.tableWidget->setRowCount(0);
-    
+
     long st;
     long et;
     long dt;
@@ -364,10 +371,29 @@ void MainWindow::dropEvent(QDropEvent* e) {
     QList<QUrl> urls = e->mimeData()->urls();
     QString fileName = urls.first().toLocalFile();
 
-    string s=strchr(fileName.toStdString().c_str(),'.');
+    string s = strchr(fileName.toStdString().c_str(), '.');
     widget.textEdit->setText(QString::fromStdString(s));
-    if(s==".srt"){
-    reads->open(fileName.toStdString());
-    setSubtitle(reads->getSubList());
+    if (s == ".srt") {
+        reads->open(fileName.toStdString());
+        setSubtitle(reads->getSubList());
+    } else if (strcasecmp(s.c_str(), ".mp4") == 0) {
+        //        mpw->open(fileName.toStdString());
+        dataObject ob;
+        ob.object = "file_selecter";
+        ob.val = 1;
+        ob.msg = fileName.toStdString();
+        Notify(ob);
     }
+}
+
+void MainWindow::setPlayBtnText(string msg){
+    widget.play->setText(QString::fromStdString(msg));
+}
+
+void MainWindow::setVolumeLevel(int val){
+    widget.volumeSlider->setValue(val);
+}
+
+int MainWindow::getVolumeLevel(){
+    return widget.volumeSlider->value();
 }

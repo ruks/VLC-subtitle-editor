@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MainWindow.ui'
 **
-** Created: Fri Sep 6 23:06:23 2013
+** Created: Tue Sep 10 21:13:19 2013
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -144,6 +144,23 @@ public:
         timeCurser->setContextMenuPolicy(Qt::ActionsContextMenu);
         timeCurser->setAcceptDrops(false);
         MainWindow->setCentralWidget(centralwidget);
+        view0->raise();
+        view1->raise();
+        tableWidget->raise();
+        srt->raise();
+        horizontalScrollBar->raise();
+        play->raise();
+        stop->raise();
+        mute->raise();
+        graphicViewSlider->raise();
+        volumeSlider->raise();
+        timeSlotBar->raise();
+        textEdit->raise();
+        timeLine->raise();
+        scale_in_but->raise();
+        scale_out_but->raise();
+        timeCurser->raise();
+        graphicsView->raise();
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setGeometry(QRect(0, 0, 1029, 25));

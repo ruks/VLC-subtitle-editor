@@ -25,6 +25,9 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/FileSelector.cpp</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/FileSelector.h</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/FileSelector.ui</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/IObserver.h</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/MainWindow.cpp</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/MainWindow.h</itemPath>
@@ -72,10 +75,16 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -120,6 +129,17 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
+      </compileType>
+    </conf>
+    <conf name="Windows" type="4">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>GNU|GNU</compilerSet>
+      </toolsSet>
+      <qt>
+        <modules>core gui</modules>
+      </qt>
+      <compileType>
       </compileType>
     </conf>
   </confs>

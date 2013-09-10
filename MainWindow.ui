@@ -288,6 +288,23 @@
      <bool>false</bool>
     </property>
    </widget>
+   <zorder>view0</zorder>
+   <zorder>view1</zorder>
+   <zorder>tableWidget</zorder>
+   <zorder>srt</zorder>
+   <zorder>horizontalScrollBar</zorder>
+   <zorder>play</zorder>
+   <zorder>stop</zorder>
+   <zorder>mute</zorder>
+   <zorder>graphicViewSlider</zorder>
+   <zorder>volumeSlider</zorder>
+   <zorder>timeSlotBar</zorder>
+   <zorder>textEdit</zorder>
+   <zorder>timeLine</zorder>
+   <zorder>scale_in_but</zorder>
+   <zorder>scale_out_but</zorder>
+   <zorder>timeCurser</zorder>
+   <zorder>graphicsView</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

@@ -18,6 +18,8 @@ public:
     void open(string filePath);
     void decodeToSRT(char line[]);
     vector<srtFormat> getSubList();
+    void clearVector();
+    void resetCounter();
 private:
 
 };

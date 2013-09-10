@@ -54,7 +54,6 @@ void SubtitleRead::open(string filePath) {
 }
 
 void SubtitleRead::decodeToSRT(char line[]) {
-    int allGood;
     char *c = "-->";
     char *n = "\n";
     int num = atoi(line);
@@ -74,7 +73,7 @@ void SubtitleRead::decodeToSRT(char line[]) {
         lineCounter++;
         return;
     }
-
+    
 
     if (strstr(line, c)) {
         string time = line;
@@ -104,4 +103,13 @@ void SubtitleRead::decodeToSRT(char line[]) {
 
 vector<srtFormat> SubtitleRead::getSubList() {
     return v;
+}
+
+void SubtitleRead::clearVector() {
+    v.clear();
+}
+
+void SubtitleRead::resetCounter() {
+    int captionNumber = 0;
+    int lineCounter = 0;
 }
