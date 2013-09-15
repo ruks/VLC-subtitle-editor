@@ -22,7 +22,7 @@ void FileSelector::openFile() {
             this,
             tr("Open Document"),
             QDir::currentPath(),
-            tr("Document files (*.doc *.rtf);;All files (*.*)"));
+            tr("Media files (*.mp4 *.flv);;Document files (*.doc *.rtf);;All files (*.*)"));
     if (!filename.isNull()) {
         //        qDebug(filename.toAscii());
         dataObject ob;

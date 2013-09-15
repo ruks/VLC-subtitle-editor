@@ -9,9 +9,6 @@
 #define	PLAYER_H
 
 //#include <QObject>
-#include <QMainWindow>
-#include <QSlider>
-#include <QLabel>
 #include <vlc/vlc.h>
 #include <iostream>
 #include "Observable.h"

@@ -19,6 +19,7 @@
 #include <QString>
 #include <iostream>
 #include <string>
+#include "srtFormat.h"
 
 using namespace std;
 
@@ -35,25 +36,25 @@ bool isMarginX = false;
 bool isMarginY = false;
 
 subtitleEditor::subtitleEditor() {
-    mplayer = new player();
+    mplayer = new player();// create new player object
 
-    window = new MainWindow();
-    window->setPlayer(mplayer);
+    window = new MainWindow();//create main window
+    window->setPlayer(mplayer);// set player at the player
 
-    waveGen = new printbits();
-    waveGen->setMainWindow(window);
-    waveGen->start();
+    waveGen = new printbits();// set the wavegen class
+    waveGen->setMainWindow(window);//set the main window on the print bits class
+    waveGen->start();// start to read pcm data
 
-    subSave = new subtitleSave();
+    subSave = new subtitleSave();// create class to save subtitle
     //    subSave->readSubtitle();
-    fileBrowser = new FileSelector();
-    fileBrowser->Attach(this);
+    fileBrowser = new FileSelector();// create object to browse file
+    fileBrowser->Attach(this);// set this class as a observer at filebbrowser class
 
-    window->Attach(this);
-    window->getTgs()->Attach(this);
-    window->getTimeCursorTgs()->Attach(this);
-    window->show();
-    mplayer->Attach(this);
+    window->Attach(this);// set this class as a observer at filebbrowser class
+    window->getTgs()->Attach(this);// set this class as a observer at filebbrowser class
+    window->getTimeCursorTgs()->Attach(this);// set this class as a observer at filebbrowser class
+    window->show();// show the main window
+    mplayer->Attach(this);// set this class as a observer at filebbrowser class
 }
 
 subtitleEditor::subtitleEditor(const subtitleEditor& orig) {
@@ -64,17 +65,20 @@ subtitleEditor::~subtitleEditor() {
 }
 
 void subtitleEditor::Update(dataObject object) {
-    if (object.object == "play_btn") {
+    if (object.object == "play_btn") {// catch the play btn click event
         mplayer->play();
-    } else if (object.object == "mute_btn") {
+    } else if (object.object == "srt_btn") {// catch the srt btn click event
+        vector<srtOutFormat> f=window->getCurrentSubData();
+        subSave->saveFile(f);
+    } else if (object.object == "mute_btn") {// catch the mute btn click event
         mplayer->mute(window->getVolumeLevel());
-    } else if (object.object == "stop_btn") {
+    } else if (object.object == "stop_btn") {// catch the stop btn click event
         mplayer->stop();
-    } else if (object.object == "on_volumeSlider_sliderMoved") {
+    } else if (object.object == "on_volumeSlider_sliderMoved") {// catch the volumeSlider moved event
         mplayer->changeVolume(object.val);
-    } else if (object.object == "on_graphicViewSlider_sliderMoved") {
+    } else if (object.object == "on_graphicViewSlider_sliderMoved") {// catch the graphicViewSlider moved event
         mplayer->changePosition(object.val);
-    } else if (object.object == "timeSlotBar" && object.msg == "time_slot_move") {
+    } else if (object.object == "timeSlotBar" && object.msg == "time_slot_move") {// catch the timeSlotBar moved event
         QGraphicsView *tg;
         tg = window->getGraphicView().timeSlotBar;
         int newX = tg->x() + object.x;
@@ -97,19 +101,15 @@ void subtitleEditor::Update(dataObject object) {
                 isDrag = true;
             }
         }
-    } else if (object.object == "timeSlotBar" && object.msg == "time_slot_mouse_release") {
+    } else if (object.object == "timeSlotBar" && object.msg == "time_slot_mouse_release") {//time slot mouse release event
         QApplication::setOverrideCursor(Qt::OpenHandCursor);
         isDrag = false;
-    } else if (object.object == "timeSlotBar" && object.msg == "time_slot_mouse_press") {
-        //                cout<<"press"<<endl;
-    } else if (object.object == "timeCuser" && object.msg == "time_slot_mouse_press") {
+    } else if (object.object == "timeSlotBar" && object.msg == "time_slot_mouse_press") {//time slot mouse press event
+    } else if (object.object == "timeCuser" && object.msg == "time_slot_mouse_press") {//time cursor mouse press event
         cout << "press" << endl;
-    } else if (object.object == "timeCuser" && object.msg == "time_slot_mouse_release") {
+    } else if (object.object == "timeCuser" && object.msg == "time_slot_mouse_release") {//time cursor mouse release event
         QApplication::setOverrideCursor(Qt::ArrowCursor);
-        //        isDrag = false;
-    } else if (object.object == "timeCuser" && object.msg == "time_slot_move") {
-        //        cout << object.object << endl;
-        //        int wx = window->x();
+    } else if (object.object == "timeCuser" && object.msg == "time_slot_move") {//time cursor mouse move event
         QGraphicsView *tg;
         tg = window->getGraphicView().timeCurser;
         QGraphicsView *gv;
@@ -120,13 +120,13 @@ void subtitleEditor::Update(dataObject object) {
             tg->setGeometry(newX, r.y(), r.width(), r.height());
         }
         QApplication::setOverrideCursor(Qt::SizeHorCursor);
-    } else if (object.object == "time_slot_enter") {
+    } else if (object.object == "time_slot_enter") {// mouse enter to time slot event
         QApplication::setOverrideCursor(Qt::OpenHandCursor);
         isDrag = false;
-    } else if (object.object == "time_slot_leave") {
+    } else if (object.object == "time_slot_leave") {// mouse leave time slot event
         QApplication::setOverrideCursor(Qt::ArrowCursor);
         isDrag = false;
-    } else if (object.object == "time_slot_margin") {
+    } else if (object.object == "time_slot_margin") {// mouse inside time slot event
         if (object.x < 0) {
             QApplication::setOverrideCursor(Qt::SizeHorCursor);
             isMarginX = true;
@@ -134,39 +134,38 @@ void subtitleEditor::Update(dataObject object) {
             QApplication::setOverrideCursor(Qt::SizeHorCursor);
             isMarginY = true;
         }
-    } else if (object.object == "time_slot_margin_leave") {
+    } else if (object.object == "time_slot_margin_leave") {// mouse leave time slot margin event
         QApplication::setOverrideCursor(Qt::ArrowCursor);
         isMarginX = false;
         isMarginY = false;
-    } else if (object.object == "time_slot_in_range") {
+    } else if (object.object == "time_slot_in_range") {// mouse inside the time slot margin event
         if (!isDrag) {
             QApplication::setOverrideCursor(Qt::OpenHandCursor);
         }
         isMarginX = false;
         isMarginY = false;
-        //                QApplication::restoreOverrideCursor();
-    } else if (object.object == "time_cursor") {
-        if (object.msg == "inside") {
+    } else if (object.object == "time_cursor") { //if msg from time_cursor
+        if (object.msg == "inside") {// if inside
             QApplication::setOverrideCursor(Qt::SizeHorCursor);
-        } else if (object.msg == "outside") {
+        } else if (object.msg == "outside") {// if outside
             QApplication::setOverrideCursor(Qt::ArrowCursor);
         }
-    } else if (object.object == "player") {
-        if (object.msg == "media_explorer") {
+    } else if (object.object == "player") {//if msg from player
+        if (object.msg == "media_explorer") {// if msg to open file
             cout << object.msg << endl;
             fileBrowser->openFile();
-        } else if (object.msg == "play") {
+        } else if (object.msg == "play") {// if play msg
             window->setPlayBtnText("play");
-        } else if (object.msg == "pause") {
+        } else if (object.msg == "pause") {// if pause msg
             window->setPlayBtnText("pause");
-        } else if (object.msg == "mute") {
+        } else if (object.msg == "mute") {// if mute msg
             window->setVolumeLevel(object.val);
         }
-    } else if (object.object == "file_selecter") {
+    } else if (object.object == "file_selecter") {//if msg from file_selecter
         libvlc_media_player_t * m;
-        m=mplayer->open(object.msg);
+        m=mplayer->open(object.msg);// open new media file
         QWidget* qw;
-        qw=window->getGraphicView().graphicsView;
+        qw=window->getGraphicView().graphicsView;// set display on player
 #if defined(Q_OS_MAC)
         libvlc_media_player_set_nsobject(m, (void *) qw->winId());
 #elif defined(Q_OS_UNIX)

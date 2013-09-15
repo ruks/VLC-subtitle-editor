@@ -36,6 +36,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES=
 
+# Test Directory
+TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
+
+# Test Files
+TESTFILES=
 
 # C Compiler Flags
 CFLAGS=
@@ -51,7 +56,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lvlc /home/rukshan/NetBeansProjects/waveViewer/lib/libsoundfile.a -lsndfile
+LDLIBSOPTIONS=-lvlc /home/rukshan/NetBeansProjects/waveViewer/lib/libsoundfile.a -lsndfile -lcppunit -lcppunit
 
 nbproject/qt-${CND_CONF}.mk: nbproject/qt-${CND_CONF}.pro FORCE
 	${QMAKE} VPATH=. -o qttmp-${CND_CONF}.mk nbproject/qt-${CND_CONF}.pro
@@ -68,6 +73,15 @@ ${CND_BUILDDIR}/Debug/%.o: nbproject/qt-${CND_CONF}.mk
 
 # Subprojects
 .build-subprojects:
+
+# Run Test Targets
+.test-conf:
+	@if [ "${TEST}" = "" ]; \
+	then  \
+	    ${TESTDIR}/TestFiles/f1 || true; \
+	else  \
+	    ./${TEST} || true; \
+	fi
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS} nbproject/qt-${CND_CONF}.mk

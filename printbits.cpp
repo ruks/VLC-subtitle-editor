@@ -116,6 +116,7 @@ void printbits::run() {
 
 
     SoundFile = sf_open("chimes.wav", SFM_READ, &SoundFileInfo);
+//    SoundFile = sf_open("audio.wav", SFM_READ, &SoundFileInfo);
     //open a file and put it's info into a struct "SoundFileInfo"
 
     Samples = new short int[SoundFileInfo.channels * SoundFileInfo.frames];
@@ -124,13 +125,5 @@ void printbits::run() {
     sf_readf_short(SoundFile, Samples, SoundFileInfo.frames);
     //fill the array with sample values, a frame equals on sample per channel 
     int frames = SoundFileInfo.frames;
-    //    cout << frames << endl;
-//    for (int i = 100000; i < frames; i++) {
-//        cout << Samples[i] << endl;
-//        cout << Samples[i]*10000 << " " << Samples[i + 1]*10000 << endl;
-//    }
-    //    cout << "finish" << endl;
-    //    win->update();
-    //    cout<<SoundFileInfo.frames<<endl;
     win->setSampleList(Samples, SoundFileInfo.frames);
 }

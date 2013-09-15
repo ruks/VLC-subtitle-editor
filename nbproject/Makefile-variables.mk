@@ -23,13 +23,13 @@ CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux-x86/package
 CND_PACKAGE_NAME_Release=waveViewer.tar
 CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/waveViewer.tar
 # Windows configuration
-CND_PLATFORM_Windows=GNU-Linux-x86
-CND_ARTIFACT_DIR_Windows=dist/Windows/GNU-Linux-x86
+CND_PLATFORM_Windows=GNU_1-Linux-x86
+CND_ARTIFACT_DIR_Windows=dist/Windows/GNU_1-Linux-x86
 CND_ARTIFACT_NAME_Windows=waveViewer
-CND_ARTIFACT_PATH_Windows=dist/Windows/GNU-Linux-x86/waveViewer
-CND_PACKAGE_DIR_Windows=dist/Windows/GNU-Linux-x86/package
+CND_ARTIFACT_PATH_Windows=dist/Windows/GNU_1-Linux-x86/waveViewer
+CND_PACKAGE_DIR_Windows=dist/Windows/GNU_1-Linux-x86/package
 CND_PACKAGE_NAME_Windows=waveViewer.tar
-CND_PACKAGE_PATH_Windows=dist/Windows/GNU-Linux-x86/package/waveViewer.tar
+CND_PACKAGE_PATH_Windows=dist/Windows/GNU_1-Linux-x86/package/waveViewer.tar
 #
 # include compiler specific variables
 #

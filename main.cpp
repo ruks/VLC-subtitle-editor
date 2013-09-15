@@ -22,12 +22,12 @@ using namespace std;
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     subtitleEditor *edit = new subtitleEditor();
-//    FileSelector s;
-//    s.openFile();
-    //    SubtitleRead *r=new SubtitleRead();
-    //    r->open("/home/rukshan/movie.srt");
-//    string s="ruk";
-//    string c="RUK";
-//    cout<<strcasecmp(s.c_str(),c.c_str())<<endl;
+//    player *p = new player();
+//    if (p->open("/home/rukshan/song.mp3")) {
+//        p->play();
+//        p->changeVolume(50);
+//    }else{
+//        cout<<"error"<<endl;
+//    }
     return app.exec();
 }

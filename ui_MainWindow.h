@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MainWindow.ui'
 **
-** Created: Tue Sep 10 21:13:19 2013
+** Created: Sun Sep 15 19:57:34 2013
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -16,7 +16,9 @@
 #include <QtGui/QButtonGroup>
 #include <QtGui/QGraphicsView>
 #include <QtGui/QHeaderView>
+#include <QtGui/QLabel>
 #include <QtGui/QMainWindow>
+#include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
 #include <QtGui/QPushButton>
 #include <QtGui/QScrollBar>
@@ -25,12 +27,16 @@
 #include <QtGui/QTableWidget>
 #include <QtGui/QTextEdit>
 #include <QtGui/QWidget>
+#include "qcustomplot.h"
 
 QT_BEGIN_NAMESPACE
 
 class Ui_MainWindow
 {
 public:
+    QAction *actionSave;
+    QAction *actionExit;
+    QAction *actionSrt;
     QWidget *centralwidget;
     QGraphicsView *view0;
     QGraphicsView *view1;
@@ -49,7 +55,14 @@ public:
     QPushButton *scale_in_but;
     QPushButton *scale_out_but;
     QGraphicsView *timeCurser;
+    QLabel *cTimeLbl;
+    QLabel *tTimeLbl;
+    QCustomPlot *PlotView1;
+    QCustomPlot *PlotView0;
     QMenuBar *menubar;
+    QMenu *menuSrt;
+    QMenu *menuSave_As;
+    QMenu *menuAbout;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -58,6 +71,12 @@ public:
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(1029, 652);
         MainWindow->setBaseSize(QSize(0, 0));
+        actionSave = new QAction(MainWindow);
+        actionSave->setObjectName(QString::fromUtf8("actionSave"));
+        actionExit = new QAction(MainWindow);
+        actionExit->setObjectName(QString::fromUtf8("actionExit"));
+        actionSrt = new QAction(MainWindow);
+        actionSrt->setObjectName(QString::fromUtf8("actionSrt"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         view0 = new QGraphicsView(centralwidget);
@@ -67,7 +86,7 @@ public:
         view0->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         view1 = new QGraphicsView(centralwidget);
         view1->setObjectName(QString::fromUtf8("view1"));
-        view1->setGeometry(QRect(20, 180, 631, 121));
+        view1->setGeometry(QRect(20, 160, 631, 121));
         view1->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         view1->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         tableWidget = new QTableWidget(centralwidget);
@@ -103,20 +122,20 @@ public:
         graphicsView->setGeometry(QRect(660, 60, 301, 241));
         play = new QPushButton(centralwidget);
         play->setObjectName(QString::fromUtf8("play"));
-        play->setGeometry(QRect(790, 320, 51, 31));
+        play->setGeometry(QRect(750, 320, 51, 31));
         stop = new QPushButton(centralwidget);
         stop->setObjectName(QString::fromUtf8("stop"));
-        stop->setGeometry(QRect(850, 320, 51, 31));
+        stop->setGeometry(QRect(810, 320, 51, 31));
         mute = new QPushButton(centralwidget);
         mute->setObjectName(QString::fromUtf8("mute"));
-        mute->setGeometry(QRect(910, 320, 51, 31));
+        mute->setGeometry(QRect(870, 320, 51, 31));
         graphicViewSlider = new QScrollBar(centralwidget);
         graphicViewSlider->setObjectName(QString::fromUtf8("graphicViewSlider"));
         graphicViewSlider->setGeometry(QRect(660, 300, 301, 16));
         graphicViewSlider->setOrientation(Qt::Horizontal);
         volumeSlider = new QSlider(centralwidget);
         volumeSlider->setObjectName(QString::fromUtf8("volumeSlider"));
-        volumeSlider->setGeometry(QRect(980, 19, 29, 231));
+        volumeSlider->setGeometry(QRect(990, 60, 29, 231));
         volumeSlider->setOrientation(Qt::Vertical);
         timeSlotBar = new QGraphicsView(centralwidget);
         timeSlotBar->setObjectName(QString::fromUtf8("timeSlotBar"));
@@ -143,6 +162,18 @@ public:
         timeCurser->setFocusPolicy(Qt::ClickFocus);
         timeCurser->setContextMenuPolicy(Qt::ActionsContextMenu);
         timeCurser->setAcceptDrops(false);
+        cTimeLbl = new QLabel(centralwidget);
+        cTimeLbl->setObjectName(QString::fromUtf8("cTimeLbl"));
+        cTimeLbl->setGeometry(QRect(660, 330, 66, 17));
+        tTimeLbl = new QLabel(centralwidget);
+        tTimeLbl->setObjectName(QString::fromUtf8("tTimeLbl"));
+        tTimeLbl->setGeometry(QRect(940, 330, 66, 17));
+        PlotView1 = new QCustomPlot(centralwidget);
+        PlotView1->setObjectName(QString::fromUtf8("PlotView1"));
+        PlotView1->setGeometry(QRect(20, 160, 631, 121));
+        PlotView0 = new QCustomPlot(centralwidget);
+        PlotView0->setObjectName(QString::fromUtf8("PlotView0"));
+        PlotView0->setGeometry(QRect(20, 60, 631, 101));
         MainWindow->setCentralWidget(centralwidget);
         view0->raise();
         view1->raise();
@@ -154,16 +185,26 @@ public:
         mute->raise();
         graphicViewSlider->raise();
         volumeSlider->raise();
-        timeSlotBar->raise();
         textEdit->raise();
         timeLine->raise();
         scale_in_but->raise();
         scale_out_but->raise();
         timeCurser->raise();
         graphicsView->raise();
+        cTimeLbl->raise();
+        tTimeLbl->raise();
+        PlotView1->raise();
+        PlotView0->raise();
+        timeSlotBar->raise();
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setGeometry(QRect(0, 0, 1029, 25));
+        menuSrt = new QMenu(menubar);
+        menuSrt->setObjectName(QString::fromUtf8("menuSrt"));
+        menuSave_As = new QMenu(menuSrt);
+        menuSave_As->setObjectName(QString::fromUtf8("menuSave_As"));
+        menuAbout = new QMenu(menubar);
+        menuAbout->setObjectName(QString::fromUtf8("menuAbout"));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -182,6 +223,13 @@ public:
         QWidget::setTabOrder(timeLine, scale_in_but);
         QWidget::setTabOrder(scale_in_but, scale_out_but);
 
+        menubar->addAction(menuSrt->menuAction());
+        menubar->addAction(menuAbout->menuAction());
+        menuSrt->addAction(actionSave);
+        menuSrt->addAction(menuSave_As->menuAction());
+        menuSrt->addAction(actionExit);
+        menuSave_As->addAction(actionSrt);
+
         retranslateUi(MainWindow);
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -190,6 +238,9 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0, QApplication::UnicodeUTF8));
+        actionSave->setText(QApplication::translate("MainWindow", "Save", 0, QApplication::UnicodeUTF8));
+        actionExit->setText(QApplication::translate("MainWindow", "Exit", 0, QApplication::UnicodeUTF8));
+        actionSrt->setText(QApplication::translate("MainWindow", "srt", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "Start time", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);
@@ -204,6 +255,11 @@ public:
         mute->setText(QApplication::translate("MainWindow", "mute", 0, QApplication::UnicodeUTF8));
         scale_in_but->setText(QApplication::translate("MainWindow", "+", 0, QApplication::UnicodeUTF8));
         scale_out_but->setText(QApplication::translate("MainWindow", "-", 0, QApplication::UnicodeUTF8));
+        cTimeLbl->setText(QApplication::translate("MainWindow", "TextLabel", 0, QApplication::UnicodeUTF8));
+        tTimeLbl->setText(QApplication::translate("MainWindow", "TextLabel", 0, QApplication::UnicodeUTF8));
+        menuSrt->setTitle(QApplication::translate("MainWindow", "File", 0, QApplication::UnicodeUTF8));
+        menuSave_As->setTitle(QApplication::translate("MainWindow", "Save As", 0, QApplication::UnicodeUTF8));
+        menuAbout->setTitle(QApplication::translate("MainWindow", "About", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

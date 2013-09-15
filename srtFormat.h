@@ -62,6 +62,13 @@ extern "C" {
         string stopMs;
     };
 
+    struct srtOutFormat {
+        int id;
+        string text;        
+        string start;        
+        string stop;
+        
+    };
 #ifdef	__cplusplus
 }
 #endif

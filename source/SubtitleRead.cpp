@@ -12,7 +12,6 @@
 #include <string.h>
 #include <vector>
 #include <srtFormat.h>
-#include <QString>
 #include <math.h>
 
 int captionNumber = 1;
@@ -33,22 +32,17 @@ SubtitleRead::~SubtitleRead() {
 
 void SubtitleRead::open(string filePath) {
     FILE *ptr_file;
-    char buf[1000];
+    char buf[1000];// buffer for hold read text line
     captionNumber = 0;
     lineCounter = 0;
     v.clear();
 
-    ptr_file = fopen(filePath.c_str(), "r");
-    if (!ptr_file)
+    ptr_file = fopen(filePath.c_str(), "r");// open file in read mode
+    if (!ptr_file)// if error
         return;
 
     while (fgets(buf, 1000, ptr_file) != NULL) {
-        //                printf("%s", buf);
-        //        try {
-        decodeToSRT(buf);
-        //        } catch (exception e) {
-        ////            cout<<e<<endl;
-        //        }
+        decodeToSRT(buf);// read line by line and decode
     }
     fclose(ptr_file);
 }
@@ -56,10 +50,10 @@ void SubtitleRead::open(string filePath) {
 void SubtitleRead::decodeToSRT(char line[]) {
     char *c = "-->";
     char *n = "\n";
-    int num = atoi(line);
+    int num = atoi(line);// convert to numeric
     srtFormat s;
 
-    if (num == captionNumber) {
+    if (num == captionNumber) {//if read number is expected create new subtitle caption
         s.id = captionNumber;
         v.push_back(s);
         captionNumber++;
@@ -75,7 +69,7 @@ void SubtitleRead::decodeToSRT(char line[]) {
     }
     
 
-    if (strstr(line, c)) {
+    if (strstr(line, c)) {// if read line is time slot
         string time = line;
         v.at(lineCounter - 1).startH = time.substr(0, 2);
         v.at(lineCounter - 1).startM = time.substr(3, 2);
@@ -90,10 +84,8 @@ void SubtitleRead::decodeToSRT(char line[]) {
         return;
     }
 
-    if (strlen(line) > 2) {
-        //        strcat(v.at(lineCounter - 1).text, line);
-        v.at(lineCounter - 1).text += line;
-        //        v.at(lineCounter).text += line;
+    if (strlen(line) > 2) {// this must subtile text
+        v.at(lineCounter - 1).text += line;// put multiple text line
         return;
     }
 
@@ -102,14 +94,15 @@ void SubtitleRead::decodeToSRT(char line[]) {
 }
 
 vector<srtFormat> SubtitleRead::getSubList() {
-    return v;
+    return v;// get list of sub decoded
 }
 
 void SubtitleRead::clearVector() {
-    v.clear();
+    v.clear();// remove content of the vector
 }
 
 void SubtitleRead::resetCounter() {
+    //initialize the counter
     int captionNumber = 0;
     int lineCounter = 0;
 }

@@ -13,6 +13,8 @@
 #include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <vector>
+#include "srtFormat.h"
 using namespace std;
 
 class subtitleSave {
@@ -25,9 +27,7 @@ private:
 public:
     void saveAsSRT(node nodes[]);
     void saveAsSSA();
-    void saveFile(string s);
-    void readSubtitle();
-    bool isNewLine(string s);
+    void saveFile(vector<srtOutFormat> s);
 };
 
 #endif	/* SUBTITLESAVE_H */

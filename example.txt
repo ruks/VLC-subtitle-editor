@@ -1,9 +1,0 @@
-0 10:10:10,100  -->  20:20:20,200
-this this my first subtitle file
-
-0 10:10:10,100  -->  20:20:20,200
-this this my first subtitle file
-
-0 10:10:10,100  -->  20:20:20,200
-this this my first subtitle file
-
