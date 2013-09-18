@@ -348,13 +348,13 @@
    <zorder>timeLine</zorder>
    <zorder>scale_in_but</zorder>
    <zorder>scale_out_but</zorder>
-   <zorder>timeCurser</zorder>
    <zorder>graphicsView</zorder>
    <zorder>cTimeLbl</zorder>
    <zorder>tTimeLbl</zorder>
    <zorder>PlotView1</zorder>
    <zorder>PlotView0</zorder>
    <zorder>timeSlotBar</zorder>
+   <zorder>timeCurser</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

@@ -54,7 +54,7 @@ public:
     void setPlayer(player *p);
     TGS* getTgs();
     TGS* getTimeCursorTgs();
-    void setSampleList(short int *sam, int len);
+    void setSampleList(short int *sam, int len,int rate);
     void setSubtitle(vector<srtFormat> v);
     void setPlayBtnText(string msg);
     int getVolumeLevel();

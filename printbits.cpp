@@ -51,5 +51,6 @@ void printbits::run() {
     Samples = new short int[SoundFileInfo.channels * SoundFileInfo.frames];
     sf_readf_short(SoundFile, Samples, SoundFileInfo.frames);
     int frames = SoundFileInfo.frames;
-    win->setSampleList(Samples, SoundFileInfo.frames);
+    cout<<SoundFileInfo.samplerate<<endl;
+    win->setSampleList(Samples, SoundFileInfo.frames,SoundFileInfo.samplerate);
 }

@@ -34,6 +34,10 @@
 #include <math.h> 
 #include <QUrl>
 #include <qt4/QtGui/qtablewidget.h>
+#include <qt4/QtCore/qdebug.h>
+#include <QDebug>
+#include <qt4/QtCore/qstring.h>
+
 using namespace std;
 
 QQueue<int8_t> Q0;
@@ -53,7 +57,9 @@ QGraphicsScene *scene1;
 QGraphicsScene *scene2;
 short int *Samples;
 double SampleLength;
+int sampleRate;
 SubtitleRead *reads;
+int posi=0;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     widget.setupUi(this); //init gui components
@@ -125,6 +131,7 @@ void MainWindow::updateInterface() {
     t = mpw->getLength() / 1000;
     widget.tTimeLbl->setText(QString::number(t / 3600, 10) + ":" + QString::number((t / 60) % 60, 10) + ":" + QString::number(t % 60, 10));
 
+
     /* update cursor position and determine its location*/
     int a = QCursor::pos().x();
     int b = this->x();
@@ -158,6 +165,10 @@ void MainWindow::updateInterface() {
         ob1.msg = "outside";
         Notify(ob1);
     }
+    
+    posi=posi+44*widget.PlotView1->xAxis->scaleLogBase();
+    widget.PlotView1->xAxis->setRange(posi, widget.PlotView1->xAxis->range().size(), Qt::AlignLeft);
+    widget.PlotView1->replot();
 }
 
 void MainWindow::update() {
@@ -167,8 +178,22 @@ void MainWindow::update() {
 }
 
 void MainWindow::on_horizontalScrollBar_sliderMoved(int position) {
-    h1->setValue(position); // set the location of the first graph 
-    h0->setValue(position); // set the location of the first graph 
+    QString q = QString::number(widget.PlotView0->xAxis->range().size(),0,0);
+//    qDebug(q.toStdString().c_str());
+
+    int n=(SampleLength / 50)/50000;
+            
+    if (qAbs(widget.PlotView0->xAxis->range().center() - position) > 0.01) // if user is dragging plot, we don't want to replot twice
+    {
+        widget.PlotView0->xAxis->setRange((n+1)*position , widget.PlotView0->xAxis->range().size(), Qt::AlignLeft);
+        widget.PlotView0->replot();
+    }
+    if (qAbs(widget.PlotView1->xAxis->range().center() - position) > 0.01) // if user is dragging plot, we don't want to replot twice
+    {
+        widget.PlotView1->xAxis->setRange((n+1)*position, widget.PlotView1->xAxis->range().size(), Qt::AlignLeft);
+        widget.PlotView1->replot();
+    }
+
 }
 
 void MainWindow::on_srt_clicked() {
@@ -254,10 +279,11 @@ void MainWindow::on_scale_out_but_clicked() {
     widget.view1->scale(0.9, 1);
 }
 
-void MainWindow::setSampleList(short int *sam, int len) {
+void MainWindow::setSampleList(short int *sam, int len,int rate) {
     //set the pcm data
     Samples = sam;
     SampleLength = len;
+    sampleRate=rate;
     //    addToGraph();
     plotGraph();
 
@@ -335,17 +361,17 @@ void MainWindow::plotGraph() {
     widget.PlotView1->graph()->setBrush(QBrush(QColor(0, 0, 255, 20)));
     widget.PlotView1->graph()->setPen(QPen(Qt::red));
 
-    int size=SampleLength/50;
+    int size = SampleLength / 50;
     QVector<double> x0(size), y0(size); // initialize with entries 0..100
     QVector<double> x1(size), y1(size); // initialize with entries 0..100
 
     for (int i = 0; i < size; i += 2) {
         x0[i] = i; // x goes from -1 to 1
-        y0[i] = Samples[100000+ i]/20; // let's plot a quadratic function
+        y0[i] = Samples[100000 + i] / 20; // let's plot a quadratic function
 
         x1[i] = i; // x goes from -1 to 1
-        y1[i] = Samples[100000+i + 1]/20; // let's plot a quadratic function
-//        cout<<y0[i]<<endl;
+        y1[i] = Samples[100000 + i + 1] / 20; // let's plot a quadratic function
+        //        cout<<y0[i]<<endl;
     }
     widget.PlotView0->addGraph();
     widget.PlotView0->graph(0)->setData(x0, y0);
@@ -353,7 +379,7 @@ void MainWindow::plotGraph() {
     widget.PlotView0->xAxis->setRange(0, 1000);
     widget.PlotView0->yAxis->setRange(-255, 255);
 
-    widget.PlotView0->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+//    widget.PlotView0->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
     widget.PlotView0->replot();
 
     widget.PlotView1->addGraph();
@@ -361,7 +387,7 @@ void MainWindow::plotGraph() {
 
     widget.PlotView1->xAxis->setRange(0, 1000);
     widget.PlotView1->yAxis->setRange(-255, 255);
-    widget.PlotView1->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+//    widget.PlotView1->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
     widget.PlotView1->replot();
 }
 
