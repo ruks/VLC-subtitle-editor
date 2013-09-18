@@ -258,7 +258,6 @@ void MainWindow::setSampleList(short int *sam, int len) {
     //set the pcm data
     Samples = sam;
     SampleLength = len;
-
     //    addToGraph();
     plotGraph();
 
@@ -336,15 +335,17 @@ void MainWindow::plotGraph() {
     widget.PlotView1->graph()->setBrush(QBrush(QColor(0, 0, 255, 20)));
     widget.PlotView1->graph()->setPen(QPen(Qt::red));
 
-    QVector<double> x0(SampleLength), y0(SampleLength); // initialize with entries 0..100
-    QVector<double> x1(SampleLength), y1(SampleLength); // initialize with entries 0..100
+    int size=SampleLength/50;
+    QVector<double> x0(size), y0(size); // initialize with entries 0..100
+    QVector<double> x1(size), y1(size); // initialize with entries 0..100
 
-    for (int i = 0; i < SampleLength; i += 2) {
+    for (int i = 0; i < size; i += 2) {
         x0[i] = i; // x goes from -1 to 1
-        y0[i] = Samples[i]; // let's plot a quadratic function
+        y0[i] = Samples[100000+ i]/20; // let's plot a quadratic function
 
         x1[i] = i; // x goes from -1 to 1
-        y1[i] = Samples[i + 1]; // let's plot a quadratic function
+        y1[i] = Samples[100000+i + 1]/20; // let's plot a quadratic function
+//        cout<<y0[i]<<endl;
     }
     widget.PlotView0->addGraph();
     widget.PlotView0->graph(0)->setData(x0, y0);
