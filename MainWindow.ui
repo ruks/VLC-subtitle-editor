@@ -23,26 +23,10 @@
    <widget class="QGraphicsView" name="view0">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>60</y>
-      <width>631</width>
-      <height>121</height>
-     </rect>
-    </property>
-    <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAsNeeded</enum>
-    </property>
-    <property name="horizontalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
-    </property>
-   </widget>
-   <widget class="QGraphicsView" name="view1">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>160</y>
-      <width>631</width>
-      <height>121</height>
+      <x>680</x>
+      <y>140</y>
+      <width>41</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="verticalScrollBarPolicy">
@@ -204,8 +188,8 @@
    <widget class="QGraphicsView" name="timeSlotBar">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>61</y>
+      <x>50</x>
+      <y>60</y>
       <width>71</width>
       <height>241</height>
      </rect>
@@ -272,9 +256,6 @@
       <height>291</height>
      </rect>
     </property>
-    <property name="cursor" stdset="0">
-     <cursorShape>SizeHorCursor</cursorShape>
-    </property>
     <property name="mouseTracking">
      <bool>false</bool>
     </property>
@@ -318,7 +299,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>160</y>
+      <y>180</y>
       <width>631</width>
       <height>121</height>
      </rect>
@@ -330,12 +311,55 @@
       <x>20</x>
       <y>60</y>
       <width>631</width>
-      <height>101</height>
+      <height>121</height>
      </rect>
     </property>
    </widget>
+   <widget class="QGraphicsView" name="view1">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>60</y>
+      <width>631</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="subTimeStartCmd">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>10</y>
+      <width>31</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>[</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="subTimeStopCmd">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>10</y>
+      <width>31</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>]</string>
+    </property>
+   </widget>
+   <zorder>PlotView0</zorder>
+   <zorder>PlotView1</zorder>
    <zorder>view0</zorder>
-   <zorder>view1</zorder>
    <zorder>tableWidget</zorder>
    <zorder>srt</zorder>
    <zorder>horizontalScrollBar</zorder>
@@ -351,10 +375,11 @@
    <zorder>graphicsView</zorder>
    <zorder>cTimeLbl</zorder>
    <zorder>tTimeLbl</zorder>
-   <zorder>PlotView1</zorder>
-   <zorder>PlotView0</zorder>
-   <zorder>timeSlotBar</zorder>
    <zorder>timeCurser</zorder>
+   <zorder>view1</zorder>
+   <zorder>timeSlotBar</zorder>
+   <zorder>subTimeStartCmd</zorder>
+   <zorder>subTimeStopCmd</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

@@ -19,6 +19,8 @@
 #include <QDropEvent>
 #include <QThread>
 #include "qcustomplot.h"
+#include "header/MyItem.h"
+#include <QQueue>
 
 class MainWindow : public QMainWindow, public Observable {
     Q_OBJECT
@@ -41,7 +43,8 @@ private slots:
     void on_stop_clicked();
     void on_volumeSlider_sliderMoved(int position);
     void on_graphicViewSlider_sliderMoved(int position);
-    //    void on_timeCurser_sliderPressed();
+    void on_subTimeStartCmd_clicked();
+    void on_subTimeStopCmd_clicked();
     void on_scale_in_but_clicked();
     void on_scale_out_but_clicked();
 
@@ -54,14 +57,18 @@ public:
     void setPlayer(player *p);
     TGS* getTgs();
     TGS* getTimeCursorTgs();
-    void setSampleList(short int *sam, int len,int rate);
+    void setSampleList(short int *s, int frame, int rate/*QQueue<int> L, QQueue<int> R*/);
     void setSubtitle(vector<srtFormat> v);
     void setPlayBtnText(string msg);
     int getVolumeLevel();
     void setVolumeLevel(int val);
     void addToGraph();
     void plotGraph();
-    vector<srtOutFormat> getCurrentSubData();
+    vector<srtFormat> getCurrentSubData();
+    MyItem* getMyItem();
+    void changeTime(int n);
+    void addRow(bool isUp);
+    void removeRow();
 
 protected:
     void dragEnterEvent(QDragEnterEvent *e);

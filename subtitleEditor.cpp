@@ -9,7 +9,6 @@
 #include <stdlib.h>
 #include "subtitleEditor.h"
 #include "MainWindow.h"
-#include "smem.h"
 #include "player.h"
 #include "printbits.h"
 #include <iostream>
@@ -43,6 +42,7 @@ subtitleEditor::subtitleEditor() {
 
     waveGen = new printbits();// set the wavegen class
     waveGen->setMainWindow(window);//set the main window on the print bits class
+    waveGen->Attach(this);
     waveGen->start();// start to read pcm data
 
     subSave = new subtitleSave();// create class to save subtitle
@@ -55,10 +55,11 @@ subtitleEditor::subtitleEditor() {
     window->getTimeCursorTgs()->Attach(this);// set this class as a observer at filebbrowser class
     window->show();// show the main window
     mplayer->Attach(this);// set this class as a observer at filebbrowser class
+    window->getMyItem()->Attach(this);
 }
 
 subtitleEditor::subtitleEditor(const subtitleEditor& orig) {
-    //    orig=orig;
+    //    orig=orig;    
 }
 
 subtitleEditor::~subtitleEditor() {
@@ -68,7 +69,7 @@ void subtitleEditor::Update(dataObject object) {
     if (object.object == "play_btn") {// catch the play btn click event
         mplayer->play();
     } else if (object.object == "srt_btn") {// catch the srt btn click event
-        vector<srtOutFormat> f=window->getCurrentSubData();
+        vector<srtFormat> f=window->getCurrentSubData();
         subSave->saveFile(f);
     } else if (object.object == "mute_btn") {// catch the mute btn click event
         mplayer->mute(window->getVolumeLevel());
@@ -174,6 +175,12 @@ void subtitleEditor::Update(dataObject object) {
         libvlc_media_player_set_hwnd(m, qw->winId());
 #endif
 
+    }else if(object.object=="timeChange"){
+        //if(object.v)
+        cout<<object.val<<endl;
+        window->changeTime(object.val);
+    }else if(object.object=="printBits" && object.msg=="setGraph"){
+//        window->setSampleList(waveGen->getLeftlist(),waveGen->getRightlist());
     }
     //    cout << object.object << endl;
 }

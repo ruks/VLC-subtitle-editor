@@ -36,7 +36,7 @@ void TGS::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) {
     ob.object = sender;
     ob.msg = "time_slot_move";
     ob.x = mouseEvent->screenPos().x() - mouseEvent->lastScreenPos().x();
-    Notify(ob);
+//    Notify(ob);
 //    cout<<mouseEvent->type()<<endl;
 }
 
@@ -45,7 +45,7 @@ void TGS::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     dataObject ob;
     ob.object = sender;
     ob.msg = "time_slot_mouse_press";
-    Notify(ob);
+//    Notify(ob);
 //    cout<<"press"<<endl;
 }
 
@@ -55,7 +55,7 @@ void TGS::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     dataObject ob;
     ob.object = sender;
     ob.msg = "time_slot_mouse_release";
-    Notify(ob);
+//    Notify(ob);
 
 }
 

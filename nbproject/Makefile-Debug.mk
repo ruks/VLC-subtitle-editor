@@ -56,7 +56,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lvlc /home/rukshan/NetBeansProjects/waveViewer/lib/libsoundfile.a -lsndfile -lcppunit -lcppunit
+LDLIBSOPTIONS=-lvlc /home/rukshan/NetBeansProjects/waveViewer/lib/libsoundfile.a -lsndfile -lcppunit -lcppunit -lavformat -lavutil
 
 nbproject/qt-${CND_CONF}.mk: nbproject/qt-${CND_CONF}.pro FORCE
 	${QMAKE} VPATH=. -o qttmp-${CND_CONF}.mk nbproject/qt-${CND_CONF}.pro

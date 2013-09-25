@@ -29,6 +29,7 @@
 #include "header/SubtitleRead.h"
 #include "qstringbuilder.h"
 #include "qthread.h"
+#include "header/MyItem.h"
 #include <QEvent>
 #include <sstream>
 #include <math.h> 
@@ -37,6 +38,9 @@
 #include <qt4/QtCore/qdebug.h>
 #include <QDebug>
 #include <qt4/QtCore/qstring.h>
+#include <QtCore/QtCore>
+#include <QtGui/QtGui>
+
 
 using namespace std;
 
@@ -59,7 +63,10 @@ short int *Samples;
 double SampleLength;
 int sampleRate;
 SubtitleRead *reads;
-int posi=0;
+int posi = 0;
+MyItem *slot;
+QQueue<int> qLL;
+QQueue<int> qRR;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     widget.setupUi(this); //init gui components
@@ -81,12 +88,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     widget.timeSlotBar->setScene(t);
     widget.timeSlotBar->setBackgroundBrush(QBrush(QColor(200, 200, 255, 100)));
     widget.timeSlotBar->setStyleSheet("background-color: transparent");
+    widget.timeSlotBar->setVisible(false);
 
     tt = new TGS("timeCuser"); // draw object for time cursor
     widget.timeCurser->setScene(tt);
     widget.timeCurser->setBackgroundBrush(QBrush(QColor(95, 95, 95, 255)));
     widget.timeCurser->setStyleSheet("background-color: transparent");
 
+    widget.view0->setStyleSheet("background-color: transparent");
+    widget.view1->setStyleSheet("background-color: transparent");
     timeLineScene = new QGraphicsScene();
     drawRuler();
     drawGraph();
@@ -94,6 +104,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     reads = new SubtitleRead(); // create object for read subtitle
     widget.volumeSlider->setValue(80);
 
+    reads->open("movie.srt");
+    setSubtitle(reads->getSubList());
+
+    widget.menubar->show();
 }
 
 MainWindow::~MainWindow() {
@@ -132,43 +146,43 @@ void MainWindow::updateInterface() {
     widget.tTimeLbl->setText(QString::number(t / 3600, 10) + ":" + QString::number((t / 60) % 60, 10) + ":" + QString::number(t % 60, 10));
 
 
-    /* update cursor position and determine its location*/
-    int a = QCursor::pos().x();
-    int b = this->x();
-    int c = widget.timeSlotBar->pos().x();
-
-    int d = a - (b + c);
-    int e = a - (b + c + widget.timeSlotBar->width());
-
-    dataObject ob;
-    ob.object = "time_slot_margin";
-
-    if (d <= 4 && d > 0) {//left
-        ob.x = -1;
-    } else if (e < 0 && e >= -4) {
-        ob.x = 1;
-    } else if (d < widget.timeSlotBar->width() && d > 0) {
-        ob.object = "time_slot_in_range";
-    } else {
-        ob.object = "time_slot_margin_leave";
-    }
-    Notify(ob);
-
-    int y = QCursor::pos().x()-(widget.timeCurser->x() + this->x());
-    dataObject ob1;
-    if (0 < y && y < 5) {
-        ob1.object = "time_cursor";
-        ob1.msg = "inside";
-        Notify(ob1);
-    } else if (d >= widget.timeSlotBar->width() || d <= 0) {
-        ob1.object = "time_cursor";
-        ob1.msg = "outside";
-        Notify(ob1);
-    }
-    
-    posi=posi+44*widget.PlotView1->xAxis->scaleLogBase();
-    widget.PlotView1->xAxis->setRange(posi, widget.PlotView1->xAxis->range().size(), Qt::AlignLeft);
-    widget.PlotView1->replot();
+    //    /* update cursor position and determine its location*/
+    //    int a = QCursor::pos().x();
+    //    int b = this->x();
+    //    int c = widget.timeSlotBar->pos().x();
+    //
+    //    int d = a - (b + c);
+    //    int e = a - (b + c + widget.timeSlotBar->width());
+    //
+    //    dataObject ob;
+    //    ob.object = "time_slot_margin";
+    //
+    //    if (d <= 4 && d > 0) {//left
+    //        ob.x = -1;
+    //    } else if (e < 0 && e >= -4) {
+    //        ob.x = 1;
+    //    } else if (d < widget.timeSlotBar->width() && d > 0) {
+    //        ob.object = "time_slot_in_range";
+    //    } else {
+    //        ob.object = "time_slot_margin_leave";
+    //    }
+    ////    Notify(ob);
+    //
+    //    int y = QCursor::pos().x()-(widget.timeCurser->x() + this->x());
+    //    dataObject ob1;
+    //    if (0 < y && y < 5) {
+    //        ob1.object = "time_cursor";
+    //        ob1.msg = "inside";
+    ////        Notify(ob1);
+    //    } else if (d >= widget.timeSlotBar->width() || d <= 0) {
+    //        ob1.object = "time_cursor";
+    //        ob1.msg = "outside";
+    ////        Notify(ob1);
+    //    }
+    //    
+    posi = posi + 44 * widget.PlotView1->xAxis->scaleLogBase();
+    //    widget.PlotView1->xAxis->setRange(posi, widget.PlotView1->xAxis->range().size(), Qt::AlignLeft);
+    //    widget.PlotView1->replot();
 }
 
 void MainWindow::update() {
@@ -178,19 +192,19 @@ void MainWindow::update() {
 }
 
 void MainWindow::on_horizontalScrollBar_sliderMoved(int position) {
-    QString q = QString::number(widget.PlotView0->xAxis->range().size(),0,0);
-//    qDebug(q.toStdString().c_str());
+    QString q = QString::number(widget.PlotView0->xAxis->range().size(), 0, 0);
+    //    qDebug(q.toStdString().c_str());
 
-    int n=(SampleLength / 50)/50000;
-            
+    int n = (qLL.size() / 50) / 10000;
+
     if (qAbs(widget.PlotView0->xAxis->range().center() - position) > 0.01) // if user is dragging plot, we don't want to replot twice
     {
-        widget.PlotView0->xAxis->setRange((n+1)*position , widget.PlotView0->xAxis->range().size(), Qt::AlignLeft);
+        widget.PlotView0->xAxis->setRange((n + 1) * position, widget.PlotView0->xAxis->range().size(), Qt::AlignLeft);
         widget.PlotView0->replot();
     }
     if (qAbs(widget.PlotView1->xAxis->range().center() - position) > 0.01) // if user is dragging plot, we don't want to replot twice
     {
-        widget.PlotView1->xAxis->setRange((n+1)*position, widget.PlotView1->xAxis->range().size(), Qt::AlignLeft);
+        widget.PlotView1->xAxis->setRange((n + 1) * position, widget.PlotView1->xAxis->range().size(), Qt::AlignLeft);
         widget.PlotView1->replot();
     }
 
@@ -267,26 +281,32 @@ void MainWindow::drawRuler() {
 
 void MainWindow::on_scale_in_but_clicked() {
     /* scale in time line and two graphs */
-    widget.timeLine->scale(1.1, 1);
-    widget.view0->scale(1.1, 1);
-    widget.view1->scale(1.1, 1);
+    //    widget.timeLine->scale(1.1, 1);
+    //    widget.view0->scale(1.1, 1);
+    //    widget.view1->scale(1.1, 1);
+    addRow(true);
+//    addRow(false);
 }
 
 void MainWindow::on_scale_out_but_clicked() {
     /* scale out time line and two graphs */
-    widget.timeLine->scale(0.9, 1);
-    widget.view0->scale(0.9, 1);
-    widget.view1->scale(0.9, 1);
+    //    widget.timeLine->scale(0.9, 1);
+    //    widget.view0->scale(0.9, 1);
+    //    widget.view1->scale(0.9, 1);
+    removeRow();
 }
 
-void MainWindow::setSampleList(short int *sam, int len,int rate) {
+void MainWindow::setSampleList(short int *s, int frame, int rate/*QQueue<int> L, QQueue<int> R*/) {
     //set the pcm data
-    Samples = sam;
-    SampleLength = len;
-    sampleRate=rate;
+    //    qLL = L;
+    //    qRR = R;
+    Samples = s;
+    SampleLength = frame;
+    sampleRate = rate;
     //    addToGraph();
     plotGraph();
-
+    //    cout<<qLL.size()<<endl;
+    //    cout<<qRR.size()<<endl;
 }
 
 void MainWindow::drawGraph() {
@@ -299,11 +319,26 @@ void MainWindow::drawGraph() {
     widget.view0->setScene(scene0);
     widget.view1->setScene(scene1);
 
+    slot = new MyItem();
+
+    QBrush brush(QColor::fromRgb(255, 0, 0, 100));
+    QPen pen(QColor::fromRgb(0, 0, 255, 100));
+    pen.setWidth(1);
+
+    slot->setBrush(QBrush(QColor(200, 200, 255, 100)));
+    slot->setPen(pen);
+    slot->setRect(50, 60, 71, 241);
+    slot->setTransformOriginPoint(0, 0);
+
+    scene1->addItem(slot);
+
+
     widget.graphicsView->setScene(scene2);
     widget.timeLine->setScene(timeLineScene);
 
+    QBrush br(QColor::fromRgb(0, 255, 0, 100));
     widget.view0->setBackgroundBrush(QBrush(Qt::green, Qt::SolidPattern));
-    widget.view1->setBackgroundBrush(QBrush(Qt::green, Qt::SolidPattern));
+    widget.view1->setBackgroundBrush(br);
     widget.graphicsView->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
 
     widget.view0->show();
@@ -361,6 +396,7 @@ void MainWindow::plotGraph() {
     widget.PlotView1->graph()->setBrush(QBrush(QColor(0, 0, 255, 20)));
     widget.PlotView1->graph()->setPen(QPen(Qt::red));
 
+    //int size = qLL.size();
     int size = SampleLength / 50;
     QVector<double> x0(size), y0(size); // initialize with entries 0..100
     QVector<double> x1(size), y1(size); // initialize with entries 0..100
@@ -373,13 +409,19 @@ void MainWindow::plotGraph() {
         y1[i] = Samples[100000 + i + 1] / 20; // let's plot a quadratic function
         //        cout<<y0[i]<<endl;
     }
+
+    //    for (int i = 0; i < size; i++) {
+    //        x0[i] = i; // x goes from -1 to 1
+    //        y0[i] = qLL.at(i); // let's plot a quadratic function
+    ////        y0[i]=100;
+    //    }
+
     widget.PlotView0->addGraph();
     widget.PlotView0->graph(0)->setData(x0, y0);
 
     widget.PlotView0->xAxis->setRange(0, 1000);
     widget.PlotView0->yAxis->setRange(-255, 255);
-
-//    widget.PlotView0->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+    //    widget.PlotView0->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
     widget.PlotView0->replot();
 
     widget.PlotView1->addGraph();
@@ -387,7 +429,7 @@ void MainWindow::plotGraph() {
 
     widget.PlotView1->xAxis->setRange(0, 1000);
     widget.PlotView1->yAxis->setRange(-255, 255);
-//    widget.PlotView1->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+    //        widget.PlotView1->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
     widget.PlotView1->replot();
 }
 
@@ -397,6 +439,11 @@ void MainWindow::setSubtitle(vector<srtFormat> v) {
     long st;
     long et;
     long dt;
+
+    int sH, fH;
+    int sM, fM;
+    int sS, fS;
+    int sMs, fMs;
 
     //add subtitle component as appropriate
     for (int i = 0; i < v.size(); i++) {
@@ -412,10 +459,40 @@ void MainWindow::setSubtitle(vector<srtFormat> v) {
         dt = et - st;
         QString dTime = QString::number(dt, 10);
 
-        widget.tableWidget->setItem(i, 0, new QTableWidgetItem(sTime));
-        widget.tableWidget->setItem(i, 1, new QTableWidgetItem(eTime));
-        widget.tableWidget->setItem(i, 2, new QTableWidgetItem(dTime));
-        widget.tableWidget->setItem(i, 3, new QTableWidgetItem(s.trimmed().simplified()));
+        sH = QString::fromStdString(srt.startH).toInt();
+        sM = QString::fromStdString(srt.startM).toInt();
+        sS = QString::fromStdString(srt.startS).toInt();
+        sMs = QString::fromStdString(srt.startMs).toInt();
+
+        fH = QString::fromStdString(srt.stopH).toInt();
+        fM = QString::fromStdString(srt.stopM).toInt();
+        fS = QString::fromStdString(srt.stopS).toInt();
+        fMs = QString::fromStdString(srt.stopMs).toInt();
+
+        QTimeEdit *st = new QTimeEdit(widget.tableWidget);
+        st->setDisplayFormat("HH:mm:ss.zzz");
+        st->setTime(QTime(sH, sM, sS, sMs));
+
+        QTimeEdit *ft = new QTimeEdit(widget.tableWidget);
+        ft->setDisplayFormat("HH:mm:ss.zzz");
+        ft->setTime(QTime(fH, fM, fS, fMs));
+
+        QTextEdit *edit = new QTextEdit(widget.tableWidget);
+        edit->setText(s.trimmed().simplified());
+
+        QSpinBox *spin = new QSpinBox(widget.tableWidget);
+        spin->setRange(0, 10000);
+        spin->setValue(dt);
+
+        //        widget.tableWidget->setItem(i, 0, new QTableWidgetItem(sTime));
+        //        widget.tableWidget->setItem(i, 1, new QTableWidgetItem(eTime));
+        //        widget.tableWidget->setItem(i, 2, new QTableWidgetItem(dTime));
+        //        widget.tableWidget->setItem(i, 3, new QTableWidgetItem(s.trimmed().simplified()));
+
+        widget.tableWidget->setCellWidget(i, 0, st);
+        widget.tableWidget->setCellWidget(i, 1, ft);
+        widget.tableWidget->setCellWidget(i, 2, spin);
+        widget.tableWidget->setCellWidget(i, 3, edit);
     }
 
 
@@ -461,15 +538,105 @@ void MainWindow::run() {
     addToGraph(); // draw data on graph as thread function
 }
 
-vector<srtOutFormat> MainWindow::getCurrentSubData() {
-    vector<srtOutFormat> res; // create vector
-    srtOutFormat f;
+vector<srtFormat> MainWindow::getCurrentSubData() {
+    vector<srtFormat> res; // create vector
+    srtFormat f;
     for (int i = 0; i < widget.tableWidget->rowCount(); i++) { //get data from table and add into vector
+
+        QTimeEdit *st = qobject_cast<QTimeEdit*>(widget.tableWidget->cellWidget(i, 0));
+        QTimeEdit *ft = qobject_cast<QTimeEdit*>(widget.tableWidget->cellWidget(i, 1));
+        QTextEdit *tex = qobject_cast<QTextEdit*>(widget.tableWidget->cellWidget(i, 3));
+
         f.id = i;
-        f.start = widget.tableWidget->item(i, 0)->text().toStdString();
-        f.stop = widget.tableWidget->item(i, 1)->text().toStdString();
-        f.text = widget.tableWidget->item(i, 3)->text().toStdString();
+        //        f.start = widget.tableWidget->item(i, 0)->text().toStdString();
+        //        f.start=st->time().hour()+":"+st->time().minute()+":"+st->time().second()+
+        //        f.stop = widget.tableWidget->item(i, 1)->text().toStdString();
+        //        f.text = widget.tableWidget->item(i, 3)->text().toStdString();
+        f.startH = QString::number(st->time().hour(), 10).toStdString();
+        f.startM = QString::number(st->time().minute(), 10).toStdString();
+        f.startS = QString::number(st->time().second(), 10).toStdString();
+        f.startMs = QString::number(st->time().msec(), 10).toStdString();
+
+        f.stopH = QString::number(ft->time().hour(), 10).toStdString();
+        f.stopM = QString::number(ft->time().minute(), 10).toStdString();
+        f.stopS = QString::number(ft->time().second(), 10).toStdString();
+        f.stopMs = QString::number(ft->time().msec(), 10).toStdString();
+
+        f.text = tex->toPlainText().toStdString();
         res.push_back(f);
     }
     return res;
+}
+
+MyItem* MainWindow::getMyItem() {
+    return slot;
+}
+
+void MainWindow::changeTime(int n) {
+    int i = widget.tableWidget->currentRow();
+    string time = widget.tableWidget->item(i, 0)->text().toStdString();
+    int h = atoi(time.substr(0, 2).c_str());
+    int m = atoi(time.substr(3, 2).c_str());
+    int s = atoi(time.substr(6, 2).c_str());
+    int ms = atoi(time.substr(9, 3).c_str());
+    int tt = ms + (s + m * 60 + h * 3600)*1000;
+    tt += n;
+
+    int t1 = tt / 1000;
+    int MS = tt % 1000;
+    int S = t1 % 60;
+    int M = t1 / 60;
+    int H = t1 / 3600;
+
+    QString st = QString::number(H, 10) + ":" + QString::number(M, 10) + ":" + QString::number(S, 10) + "," + QString::number(MS, 10);
+
+    widget.tableWidget->setItem(i, 0, new QTableWidgetItem(st));
+}
+
+void MainWindow::on_subTimeStartCmd_clicked() {
+    qDebug("start");
+
+    widget.textEdit->setText(QString::number(mpw->getTime()));
+}
+
+void MainWindow::on_subTimeStopCmd_clicked() {
+    qDebug("stop");
+}
+
+void MainWindow::addRow(bool isUp) {
+
+    int n=widget.tableWidget->currentRow();
+//    qDebug(QString::number(n).toStdString().c_str());
+            
+    if(isUp){
+        n--;
+    }else{
+        n++;
+    }
+    widget.tableWidget->insertRow(n);
+    
+    QTimeEdit *st = new QTimeEdit(widget.tableWidget);
+    st->setDisplayFormat("HH:mm:ss.zzz");
+    //        st->setTime(QTime(sH, sM, sS, sMs));
+
+    QTimeEdit *ft = new QTimeEdit(widget.tableWidget);
+    ft->setDisplayFormat("HH:mm:ss.zzz");
+    //        ft->setTime(QTime(fH, fM, fS, fMs));
+
+    QTextEdit *edit = new QTextEdit(widget.tableWidget);
+    //        edit->setText(s.trimmed().simplified());
+
+    QSpinBox *spin = new QSpinBox(widget.tableWidget);
+    spin->setRange(0, 10000);
+    //        spin->setValue(dt);
+
+    widget.tableWidget->setCellWidget(n, 0, st);
+    widget.tableWidget->setCellWidget(n, 1, ft);
+    widget.tableWidget->setCellWidget(n, 2, spin);
+    widget.tableWidget->setCellWidget(n, 3, edit);
+}
+
+void MainWindow::removeRow(){
+    int n=widget.tableWidget->currentRow();
+    widget.tableWidget->removeRow(n);
 }

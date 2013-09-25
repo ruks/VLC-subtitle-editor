@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MainWindow.h'
 **
-** Created: Wed Sep 18 12:40:02 2013
+** Created: Wed Sep 25 08:58:15 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      10,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -40,7 +40,9 @@ static const uint qt_meta_data_MainWindow[] = {
      150,   30,   11,   11, 0x08,
      183,   30,   11,   11, 0x08,
      221,   11,   11,   11, 0x08,
-     247,   11,   11,   11, 0x08,
+     250,   11,   11,   11, 0x08,
+     278,   11,   11,   11, 0x08,
+     304,   11,   11,   11, 0x08,
 
        0        // eod
 };
@@ -52,6 +54,8 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "on_mute_clicked()\0on_stop_clicked()\0"
     "on_volumeSlider_sliderMoved(int)\0"
     "on_graphicViewSlider_sliderMoved(int)\0"
+    "on_subTimeStartCmd_clicked()\0"
+    "on_subTimeStopCmd_clicked()\0"
     "on_scale_in_but_clicked()\0"
     "on_scale_out_but_clicked()\0"
 };
@@ -70,8 +74,10 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 5: _t->on_stop_clicked(); break;
         case 6: _t->on_volumeSlider_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 7: _t->on_graphicViewSlider_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 8: _t->on_scale_in_but_clicked(); break;
-        case 9: _t->on_scale_out_but_clicked(); break;
+        case 8: _t->on_subTimeStartCmd_clicked(); break;
+        case 9: _t->on_subTimeStopCmd_clicked(); break;
+        case 10: _t->on_scale_in_but_clicked(); break;
+        case 11: _t->on_scale_out_but_clicked(); break;
         default: ;
         }
     }
@@ -111,9 +117,9 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 10)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 12;
     }
     return _id;
 }

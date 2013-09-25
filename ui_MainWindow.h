@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MainWindow.ui'
 **
-** Created: Wed Sep 18 11:21:09 2013
+** Created: Tue Sep 24 23:09:22 2013
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -39,7 +39,6 @@ public:
     QAction *actionSrt;
     QWidget *centralwidget;
     QGraphicsView *view0;
-    QGraphicsView *view1;
     QTableWidget *tableWidget;
     QPushButton *srt;
     QScrollBar *horizontalScrollBar;
@@ -59,6 +58,9 @@ public:
     QLabel *tTimeLbl;
     QCustomPlot *PlotView1;
     QCustomPlot *PlotView0;
+    QGraphicsView *view1;
+    QPushButton *subTimeStartCmd;
+    QPushButton *subTimeStopCmd;
     QMenuBar *menubar;
     QMenu *menuSrt;
     QMenu *menuSave_As;
@@ -81,14 +83,9 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         view0 = new QGraphicsView(centralwidget);
         view0->setObjectName(QString::fromUtf8("view0"));
-        view0->setGeometry(QRect(20, 60, 631, 121));
+        view0->setGeometry(QRect(680, 140, 41, 81));
         view0->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         view0->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        view1 = new QGraphicsView(centralwidget);
-        view1->setObjectName(QString::fromUtf8("view1"));
-        view1->setGeometry(QRect(20, 160, 631, 121));
-        view1->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-        view1->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         tableWidget = new QTableWidget(centralwidget);
         if (tableWidget->columnCount() < 4)
             tableWidget->setColumnCount(4);
@@ -139,7 +136,7 @@ public:
         volumeSlider->setOrientation(Qt::Vertical);
         timeSlotBar = new QGraphicsView(centralwidget);
         timeSlotBar->setObjectName(QString::fromUtf8("timeSlotBar"));
-        timeSlotBar->setGeometry(QRect(300, 61, 71, 241));
+        timeSlotBar->setGeometry(QRect(50, 60, 71, 241));
         timeSlotBar->setMouseTracking(false);
         textEdit = new QTextEdit(centralwidget);
         textEdit->setObjectName(QString::fromUtf8("textEdit"));
@@ -157,7 +154,6 @@ public:
         timeCurser = new QGraphicsView(centralwidget);
         timeCurser->setObjectName(QString::fromUtf8("timeCurser"));
         timeCurser->setGeometry(QRect(465, 10, 4, 291));
-        timeCurser->viewport()->setProperty("cursor", QVariant(QCursor(Qt::SizeHorCursor)));
         timeCurser->setMouseTracking(false);
         timeCurser->setFocusPolicy(Qt::ClickFocus);
         timeCurser->setContextMenuPolicy(Qt::ActionsContextMenu);
@@ -170,13 +166,25 @@ public:
         tTimeLbl->setGeometry(QRect(940, 330, 66, 17));
         PlotView1 = new QCustomPlot(centralwidget);
         PlotView1->setObjectName(QString::fromUtf8("PlotView1"));
-        PlotView1->setGeometry(QRect(20, 160, 631, 121));
+        PlotView1->setGeometry(QRect(20, 180, 631, 121));
         PlotView0 = new QCustomPlot(centralwidget);
         PlotView0->setObjectName(QString::fromUtf8("PlotView0"));
-        PlotView0->setGeometry(QRect(20, 60, 631, 101));
+        PlotView0->setGeometry(QRect(20, 60, 631, 121));
+        view1 = new QGraphicsView(centralwidget);
+        view1->setObjectName(QString::fromUtf8("view1"));
+        view1->setGeometry(QRect(20, 60, 631, 241));
+        view1->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        view1->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        subTimeStartCmd = new QPushButton(centralwidget);
+        subTimeStartCmd->setObjectName(QString::fromUtf8("subTimeStartCmd"));
+        subTimeStartCmd->setGeometry(QRect(740, 10, 31, 27));
+        subTimeStopCmd = new QPushButton(centralwidget);
+        subTimeStopCmd->setObjectName(QString::fromUtf8("subTimeStopCmd"));
+        subTimeStopCmd->setGeometry(QRect(780, 10, 31, 27));
         MainWindow->setCentralWidget(centralwidget);
+        PlotView0->raise();
+        PlotView1->raise();
         view0->raise();
-        view1->raise();
         tableWidget->raise();
         srt->raise();
         horizontalScrollBar->raise();
@@ -192,10 +200,11 @@ public:
         graphicsView->raise();
         cTimeLbl->raise();
         tTimeLbl->raise();
-        PlotView1->raise();
-        PlotView0->raise();
-        timeSlotBar->raise();
         timeCurser->raise();
+        view1->raise();
+        timeSlotBar->raise();
+        subTimeStartCmd->raise();
+        subTimeStopCmd->raise();
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setGeometry(QRect(0, 0, 1029, 25));
@@ -257,6 +266,8 @@ public:
         scale_out_but->setText(QApplication::translate("MainWindow", "-", 0, QApplication::UnicodeUTF8));
         cTimeLbl->setText(QApplication::translate("MainWindow", "TextLabel", 0, QApplication::UnicodeUTF8));
         tTimeLbl->setText(QApplication::translate("MainWindow", "TextLabel", 0, QApplication::UnicodeUTF8));
+        subTimeStartCmd->setText(QApplication::translate("MainWindow", "[", 0, QApplication::UnicodeUTF8));
+        subTimeStopCmd->setText(QApplication::translate("MainWindow", "]", 0, QApplication::UnicodeUTF8));
         menuSrt->setTitle(QApplication::translate("MainWindow", "File", 0, QApplication::UnicodeUTF8));
         menuSave_As->setTitle(QApplication::translate("MainWindow", "Save As", 0, QApplication::UnicodeUTF8));
         menuAbout->setTitle(QApplication::translate("MainWindow", "About", 0, QApplication::UnicodeUTF8));

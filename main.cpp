@@ -6,7 +6,6 @@
  */
 
 #include <QtGui/QApplication>
-#include "smem.h"
 #include <QTimer>
 #include <qt4/QtCore/qdebug.h>
 #include "MainWindow.h"

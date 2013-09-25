@@ -27,7 +27,7 @@ private:
 public:
     void saveAsSRT(node nodes[]);
     void saveAsSSA();
-    void saveFile(vector<srtOutFormat> s);
+    void saveFile(vector<srtFormat> s);
 };
 
 #endif	/* SUBTITLESAVE_H */

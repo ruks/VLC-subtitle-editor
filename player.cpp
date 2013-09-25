@@ -10,13 +10,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <vlc/vlc.h>
+#include <qt4/QtCore/qdebug.h>
+#include <qt4/QtCore/qglobal.h>
 
 libvlc_instance_t *inst;
 libvlc_media_player_t *mp;
 libvlc_media_t *m;
 
 player::player() {
-    inst = libvlc_new(0, NULL); //constructor
+    inst = libvlc_new(0, NULL); //constructor    
+//    qDebug()
 }
 
 player::player(const player& orig) {

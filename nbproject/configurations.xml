@@ -37,6 +37,8 @@
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/MainWindow.cpp</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/MainWindow.h</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/MainWindow.ui</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/source/MyItem.cpp</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/header/MyItem.h</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/Observable.cpp</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/Observable.h</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/source/SubtitleRead.cpp</itemPath>
@@ -112,6 +114,8 @@
             <linkerLibLibItem>sndfile</linkerLibLibItem>
             <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
             <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
+            <linkerLibLibItem>avformat</linkerLibLibItem>
+            <linkerLibLibItem>avutil</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
