@@ -190,8 +190,11 @@ void subtitleEditor::Update(dataObject object) {
 #endif
         } else if (object.val == 1) {
             subRead=new SubtitleRead();
+            qDebug("start Reading");
             subRead->open(object.msg);
+            qDebug("start setting");
             window->setSubtitle(subRead->getSubList());
+            qDebug("Finished");
         }
 
     } else if (object.object == "file_selector_save") {

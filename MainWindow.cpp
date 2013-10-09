@@ -106,8 +106,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     reads = new SubtitleRead(); // create object for read subtitle
     widget.volumeSlider->setValue(80);
 
-//    reads->open("/home/rukshan/Oblivion.srt");
-//    setSubtitle(reads->getSubList());
+    //    reads->open("/home/rukshan/Oblivion.srt");
+    //    setSubtitle(reads->getSubList());
 
     playSub = new PlaySubtitle(reads, mpw);
     playSub->setTable(widget.tableWidget);
@@ -521,9 +521,13 @@ void MainWindow::setSubtitle(vector<srtFormat> v) {
         widget.tableWidget->setCellWidget(i, 1, ft);
         widget.tableWidget->setCellWidget(i, 2, spin);
         widget.tableWidget->setCellWidget(i, 3, edit);
+
+        cout << (i * 100) / v.size() << " %\r";
+        cout.flush();
+
     }
 
-
+    cout << endl;
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent* e) {
@@ -843,10 +847,10 @@ void MainWindow::on_tableWidget_currentCellChanged(int currentRow, int currentCo
     }
 }
 
-void MainWindow::on_textEdit_textChanged(){
-    int currentRow=widget.tableWidget->currentRow();
+void MainWindow::on_textEdit_textChanged() {
+    int currentRow = widget.tableWidget->currentRow();
     if (currentRow >= 0) {
         QTextEdit *st = qobject_cast<QTextEdit*>(widget.tableWidget->cellWidget(currentRow, 3));
-//        st->setText(widget.textEdit->toPlainText());
+        //        st->setText(widget.textEdit->toPlainText());
     }
 }
