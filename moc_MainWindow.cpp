@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MainWindow.h'
 **
-** Created: Wed Sep 25 08:58:15 2013
+** Created: Wed Oct 9 11:26:09 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
+      19,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -36,13 +36,20 @@ static const uint qt_meta_data_MainWindow[] = {
       79,   11,   11,   11, 0x08,
       96,   11,   11,   11, 0x08,
      114,   11,   11,   11, 0x08,
-     132,   11,   11,   11, 0x08,
-     150,   30,   11,   11, 0x08,
-     183,   30,   11,   11, 0x08,
-     221,   11,   11,   11, 0x08,
-     250,   11,   11,   11, 0x08,
-     278,   11,   11,   11, 0x08,
-     304,   11,   11,   11, 0x08,
+     136,   11,   11,   11, 0x08,
+     154,   11,   11,   11, 0x08,
+     172,   30,   11,   11, 0x08,
+     205,   30,   11,   11, 0x08,
+     243,   11,   11,   11, 0x08,
+     272,   11,   11,   11, 0x08,
+     300,   11,   11,   11, 0x08,
+     327,   11,   11,   11, 0x08,
+     355,   11,   11,   11, 0x08,
+     379,   11,   11,   11, 0x08,
+     404,   11,   11,   11, 0x08,
+     439,   11,   11,   11, 0x08,
+     523,  471,   11,   11, 0x08,
+     574,   11,   11,   11, 0x08,
 
        0        // eod
 };
@@ -51,13 +58,20 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "MainWindow\0\0updateInterface()\0position\0"
     "on_horizontalScrollBar_sliderMoved(int)\0"
     "on_srt_clicked()\0on_play_clicked()\0"
-    "on_mute_clicked()\0on_stop_clicked()\0"
-    "on_volumeSlider_sliderMoved(int)\0"
+    "on_pauseBtn_clicked()\0on_mute_clicked()\0"
+    "on_stop_clicked()\0on_volumeSlider_sliderMoved(int)\0"
     "on_graphicViewSlider_sliderMoved(int)\0"
     "on_subTimeStartCmd_clicked()\0"
     "on_subTimeStopCmd_clicked()\0"
-    "on_scale_in_but_clicked()\0"
-    "on_scale_out_but_clicked()\0"
+    "on_add_row_after_clicked()\0"
+    "on_add_row_before_clicked()\0"
+    "on_remove_row_clicked()\0"
+    "on_actionSrt_triggered()\0"
+    "on_actionSubtitle_file_triggered()\0"
+    "on_actionMedia_file_triggered()\0"
+    "currentRow,currentColumn,previousRow,previousColumn\0"
+    "on_tableWidget_currentCellChanged(int,int,int,int)\0"
+    "on_textEdit_textChanged()\0"
 };
 
 void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -70,14 +84,21 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 1: _t->on_horizontalScrollBar_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 2: _t->on_srt_clicked(); break;
         case 3: _t->on_play_clicked(); break;
-        case 4: _t->on_mute_clicked(); break;
-        case 5: _t->on_stop_clicked(); break;
-        case 6: _t->on_volumeSlider_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 7: _t->on_graphicViewSlider_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 8: _t->on_subTimeStartCmd_clicked(); break;
-        case 9: _t->on_subTimeStopCmd_clicked(); break;
-        case 10: _t->on_scale_in_but_clicked(); break;
-        case 11: _t->on_scale_out_but_clicked(); break;
+        case 4: _t->on_pauseBtn_clicked(); break;
+        case 5: _t->on_mute_clicked(); break;
+        case 6: _t->on_stop_clicked(); break;
+        case 7: _t->on_volumeSlider_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 8: _t->on_graphicViewSlider_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 9: _t->on_subTimeStartCmd_clicked(); break;
+        case 10: _t->on_subTimeStopCmd_clicked(); break;
+        case 11: _t->on_add_row_after_clicked(); break;
+        case 12: _t->on_add_row_before_clicked(); break;
+        case 13: _t->on_remove_row_clicked(); break;
+        case 14: _t->on_actionSrt_triggered(); break;
+        case 15: _t->on_actionSubtitle_file_triggered(); break;
+        case 16: _t->on_actionMedia_file_triggered(); break;
+        case 17: _t->on_tableWidget_currentCellChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
+        case 18: _t->on_textEdit_textChanged(); break;
         default: ;
         }
     }
@@ -117,9 +138,9 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 12)
+        if (_id < 19)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 19;
     }
     return _id;
 }

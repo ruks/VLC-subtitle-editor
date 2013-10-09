@@ -15,6 +15,7 @@ public:
     FileSelector();
     virtual ~FileSelector();
     void openFile();
+    void openSubFile();
     void openFiles();
     void openDir();
     void saveFile();

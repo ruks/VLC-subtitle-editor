@@ -36,7 +36,8 @@ slots:
     
     QString str;
     QGraphicsTextItem cursor;
-    string sender;
+    string sender;    
+    
 };
 
 #endif	/* TGS_H */

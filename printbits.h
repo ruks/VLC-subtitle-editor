@@ -21,7 +21,8 @@ public:
     virtual ~printbits();
     void setMainWindow(MainWindow *m);
     bool stat;
-    void runs();
+    void ffmpegPCM();
+    void sndFilePCM();
     QQueue<int> getLeftlist();
     QQueue<int> getRightlist();
 

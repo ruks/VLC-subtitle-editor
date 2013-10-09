@@ -11,7 +11,7 @@
 MyItem::MyItem() {
     setAcceptHoverEvents(true);
     setFlag(QGraphicsItem::ItemIsMovable, true);
-    installSceneEventFilter(this);
+//    installSceneEventFilter(this);
 }
 
 MyItem::MyItem(const MyItem& orig) {
@@ -33,18 +33,14 @@ void MyItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
     int i = event->pos().x();
     int j = rect().x();
     QString s = QString::number(i, 10);
-    //    qDebug(s.toStdString().c_str());
-    //    this->setX(this->x() + i);
+    
     if (i >= j && i <= j + 10) {
-//        this->setRect(rect().x() + i, rect().y(), rect().width() - i, rect().height());
-//        this->setX(this->x() + k);
-//        this->rect().setWidth(rect().width()+i);
+        this->setRect(rect().x() + k, rect().y(), rect().width() - k, rect().height());
         qDebug("here");
     } else if (i >= j + rect().width() - 5 && i <= j + rect().width()) {
-//        this->setRect(rect().x(), rect().y(), rect().width() + i, rect().height());
+        this->setRect(rect().x(), rect().y(), rect().width() + k, rect().height());
     } else {
-        this->setX(this->x() + i);
-//        qDebug("else");
+        this->setX(this->x() + k);
     }
     dataObject ob;
     ob.object = "timeChange";
@@ -79,7 +75,7 @@ void MyItem::hoverMoveEvent(QGraphicsSceneHoverEvent *event) {
     }
 }
 
-bool MyItem::sceneEventFilter(QGraphicsItem* watched, QEvent* event) {
+bool MyItem::sceneEventFilters(QGraphicsItem* watched, QEvent* event) {
     if (watched == this) {
 
         if (event->type() == QEvent::MouseButtonPress) {

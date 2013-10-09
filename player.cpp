@@ -19,7 +19,11 @@ libvlc_media_t *m;
 
 player::player() {
     inst = libvlc_new(0, NULL); //constructor    
-//    qDebug()
+    //    qDebug()
+    dataObject ob;
+    ob.object = "file_selector_open";
+    ob.msg = "/home/rukshan/Oblivion.mp4";
+//    Notify(ob);
 }
 
 player::player(const player& orig) {
@@ -32,24 +36,24 @@ void player::play() {
     if (!mp) { //if player is not load with media
         dataObject ob;
         ob.object = "player";
-        ob.msg = "media_explorer";
+        ob.msg = "media_explorer_media";
         Notify(ob);
         return;
     }
 
     if (libvlc_media_player_is_playing(mp)) { //if current playing
         /* Pause */
-        libvlc_media_player_pause(mp);
+//        libvlc_media_player_pause(mp);
         dataObject ob;
         ob.object = "player";
         ob.msg = "play";
-        Notify(ob);
+//        Notify(ob);
     } else { //if not playing
         /* Play again */
         dataObject ob;
         ob.object = "player";
         ob.msg = "pause";
-        Notify(ob);
+//        Notify(ob);
         libvlc_media_player_play(mp);
     }
 }
@@ -98,10 +102,14 @@ bool player::isPLay() {
 void player::pause() {
     //    libvlc_media_player_set_pause(mp,pause());
     //  pause();
-    if (libvlc_media_player_can_pause(mp)) {// if player is initialize pause player
+    if (mp && libvlc_media_player_is_playing(mp)) {// if player is initialize pause player        
         libvlc_media_player_pause(mp);
+        dataObject ob;
+        ob.object = "player";
+        ob.msg = "play";
+//        Notify(ob);
     } else {
-        exit(EXIT_FAILURE);
+//        exit(EXIT_FAILURE);
     }
 }
 
@@ -153,8 +161,8 @@ libvlc_media_player_t* player::getMP() {
 }
 
 libvlc_media_player_t * player::open(string path) {
-        stop();
-    
+    //stop();
+
     m = libvlc_media_new_path(inst, path.c_str());
     if (!m) {
         //        exit(EXIT_FAILURE);
@@ -162,9 +170,8 @@ libvlc_media_player_t * player::open(string path) {
     }
     // create a media play playing environment
     mp = libvlc_media_player_new_from_media(m);
-
+    
     // no need to keep the media now
     libvlc_media_release(m);
-
     return mp;
 }

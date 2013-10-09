@@ -49,7 +49,7 @@ printbits::printbits(const printbits& orig) {
 printbits::~printbits() {
 }
 
-void printbits::runs() {
+void printbits::ffmpegPCM() {
     av_register_all();
     AVFormatContext *pFormatCtx;
 
@@ -65,7 +65,8 @@ void printbits::runs() {
     }
 
     // Dump information about file onto standard error
-//    dump_format(container, 0, file, 0);
+        dump_format(container, 0, file, 0);
+        cout<<container->filename<<endl;
 
     int stream_id = -1;
     int i;
@@ -114,9 +115,8 @@ void printbits::runs() {
                 char* ptr_r = (char*) frame->extended_data[1];
                 size_t size = sizeof (int16_t);
                 for (i = 0; i < frame->linesize[0]; i += size) {
-//                    printf("%d\n", *(ptr_l+1));
-                                        qL.push_back(*(ptr_l));
-                    //                    qR.push_back(*ptr_r);
+                    qL.push_back(*(ptr_l));
+//                    qR.push_back(*(ptr_r));
                     ptr_l += size;
                     ptr_r += size;
                 }
@@ -140,16 +140,21 @@ void printbits::setMainWindow(MainWindow* m) {
 }
 
 void printbits::run() {
+    //    sndFilePCM();
+    ffmpegPCM();
+}
+
+void printbits::sndFilePCM() {
     SNDFILE *SoundFile;
     SF_INFO SoundFileInfo;
     short int *Samples;
-    //    SoundFile = sf_open("chimes.wav", SFM_READ, &SoundFileInfo);
+    //        SoundFile = sf_open("chimes.wav", SFM_READ, &SoundFileInfo);
     SoundFile = sf_open("audio.wav", SFM_READ, &SoundFileInfo);
     Samples = new short int[SoundFileInfo.channels * SoundFileInfo.frames];
     sf_readf_short(SoundFile, Samples, SoundFileInfo.frames);
     int frames = SoundFileInfo.frames;
-//    cout << SoundFileInfo.samplerate << endl;
-        win->setSampleList(Samples, SoundFileInfo.frames, SoundFileInfo.samplerate);
+    //    cout << SoundFileInfo.samplerate << endl;
+    win->setSampleList(Samples, SoundFileInfo.frames, SoundFileInfo.samplerate);
 }
 
 QQueue<int> printbits::getLeftlist() {

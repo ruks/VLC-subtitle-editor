@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1029</width>
+    <width>1138</width>
     <height>652</height>
    </rect>
   </property>
@@ -20,28 +20,12 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QGraphicsView" name="view0">
-    <property name="geometry">
-     <rect>
-      <x>680</x>
-      <y>140</y>
-      <width>41</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAsNeeded</enum>
-    </property>
-    <property name="horizontalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
-    </property>
-   </widget>
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>370</y>
-      <width>941</width>
+      <width>1041</width>
       <height>231</height>
      </rect>
     </property>
@@ -87,8 +71,8 @@
    <widget class="QPushButton" name="srt">
     <property name="geometry">
      <rect>
-      <x>910</x>
-      <y>20</y>
+      <x>900</x>
+      <y>-30</y>
       <width>51</width>
       <height>31</height>
      </rect>
@@ -100,8 +84,8 @@
    <widget class="QScrollBar" name="horizontalScrollBar">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>300</y>
+      <x>10</x>
+      <y>290</y>
       <width>631</width>
       <height>16</height>
      </rect>
@@ -113,58 +97,19 @@
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>60</y>
-      <width>301</width>
-      <height>241</height>
+      <x>650</x>
+      <y>10</y>
+      <width>401</width>
+      <height>271</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="play">
-    <property name="geometry">
-     <rect>
-      <x>750</x>
-      <y>320</y>
-      <width>51</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>play</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="stop">
-    <property name="geometry">
-     <rect>
-      <x>810</x>
-      <y>320</y>
-      <width>51</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>stop</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="mute">
-    <property name="geometry">
-     <rect>
-      <x>870</x>
-      <y>320</y>
-      <width>51</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>mute</string>
     </property>
    </widget>
    <widget class="QScrollBar" name="graphicViewSlider">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>300</y>
-      <width>301</width>
+      <x>650</x>
+      <y>290</y>
+      <width>401</width>
       <height>16</height>
      </rect>
     </property>
@@ -175,10 +120,10 @@
    <widget class="QSlider" name="volumeSlider">
     <property name="geometry">
      <rect>
-      <x>990</x>
-      <y>60</y>
+      <x>1070</x>
+      <y>10</y>
       <width>29</width>
-      <height>231</height>
+      <height>251</height>
      </rect>
     </property>
     <property name="orientation">
@@ -188,10 +133,10 @@
    <widget class="QGraphicsView" name="timeSlotBar">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>60</y>
+      <x>40</x>
+      <y>10</y>
       <width>71</width>
-      <height>241</height>
+      <height>271</height>
      </rect>
     </property>
     <property name="mouseTracking">
@@ -201,59 +146,20 @@
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>320</y>
+      <x>10</x>
+      <y>310</y>
       <width>631</width>
-      <height>41</height>
+      <height>51</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QGraphicsView" name="timeLine">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>10</y>
-      <width>631</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgba(85, 0, 0,80);</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="scale_in_but">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>10</y>
-      <width>31</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>+</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="scale_out_but">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>10</y>
-      <width>31</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>-</string>
     </property>
    </widget>
    <widget class="QGraphicsView" name="timeCurser">
     <property name="geometry">
      <rect>
-      <x>465</x>
-      <y>10</y>
-      <width>4</width>
-      <height>291</height>
+      <x>440</x>
+      <y>12</y>
+      <width>16</width>
+      <height>271</height>
      </rect>
     </property>
     <property name="mouseTracking">
@@ -272,8 +178,8 @@
    <widget class="QLabel" name="cTimeLbl">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>330</y>
+      <x>650</x>
+      <y>310</y>
       <width>66</width>
       <height>17</height>
      </rect>
@@ -285,8 +191,8 @@
    <widget class="QLabel" name="tTimeLbl">
     <property name="geometry">
      <rect>
-      <x>940</x>
-      <y>330</y>
+      <x>980</x>
+      <y>310</y>
       <width>66</width>
       <height>17</height>
      </rect>
@@ -298,30 +204,30 @@
    <widget class="QCustomPlot" name="PlotView1" native="true">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>180</y>
+      <x>10</x>
+      <y>150</y>
       <width>631</width>
-      <height>121</height>
+      <height>131</height>
      </rect>
     </property>
    </widget>
    <widget class="QCustomPlot" name="PlotView0" native="true">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>60</y>
+      <x>10</x>
+      <y>10</y>
       <width>631</width>
-      <height>121</height>
+      <height>131</height>
      </rect>
     </property>
    </widget>
    <widget class="QGraphicsView" name="view1">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>60</y>
+      <x>10</x>
+      <y>10</y>
       <width>631</width>
-      <height>241</height>
+      <height>271</height>
      </rect>
     </property>
     <property name="verticalScrollBarPolicy">
@@ -331,62 +237,173 @@
      <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="subTimeStartCmd">
+   <widget class="QPushButton" name="mute">
     <property name="geometry">
      <rect>
-      <x>740</x>
-      <y>10</y>
-      <width>31</width>
+      <x>1070</x>
+      <y>270</y>
+      <width>30</width>
       <height>27</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;mute&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
     <property name="text">
-     <string>[</string>
+     <string>*</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="subTimeStopCmd">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>780</x>
-      <y>10</y>
-      <width>31</width>
-      <height>27</height>
+      <x>650</x>
+      <y>330</y>
+      <width>448</width>
+      <height>31</height>
      </rect>
     </property>
-    <property name="text">
-     <string>]</string>
-    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="add_row_after">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add row after&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>image/table_row_add_after.png</normalon>
+        </iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="add_row_before">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;add row before&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>image/table_row_add_before.png</normalon>
+        </iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="remove_row">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;remove row&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>image/minus-512.png</normalon>
+        </iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>22</width>
+         <height>18</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="subTimeStartCmd">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;set Sub start time&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>[</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="subTimeStopCmd">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;set stop sub time&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>]</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pauseBtn">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;pause&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>image/basic2-129_media_pause-128.png</normalon>
+        </iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="play">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;play&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>image/Play-128.png</normalon>
+        </iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="stop">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;stop&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normalon>image/basic2-128_media_stop-128.png</normalon>
+        </iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
+   <zorder>tableWidget</zorder>
+   <zorder>textEdit</zorder>
+   <zorder>layoutWidget</zorder>
    <zorder>PlotView0</zorder>
    <zorder>PlotView1</zorder>
-   <zorder>view0</zorder>
-   <zorder>tableWidget</zorder>
    <zorder>srt</zorder>
    <zorder>horizontalScrollBar</zorder>
-   <zorder>play</zorder>
-   <zorder>stop</zorder>
-   <zorder>mute</zorder>
    <zorder>graphicViewSlider</zorder>
    <zorder>volumeSlider</zorder>
-   <zorder>textEdit</zorder>
-   <zorder>timeLine</zorder>
-   <zorder>scale_in_but</zorder>
-   <zorder>scale_out_but</zorder>
    <zorder>graphicsView</zorder>
    <zorder>cTimeLbl</zorder>
    <zorder>tTimeLbl</zorder>
-   <zorder>timeCurser</zorder>
    <zorder>view1</zorder>
    <zorder>timeSlotBar</zorder>
-   <zorder>subTimeStartCmd</zorder>
-   <zorder>subTimeStopCmd</zorder>
+   <zorder>timeCurser</zorder>
+   <zorder>mute</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1029</width>
+     <width>1138</width>
      <height>25</height>
     </rect>
    </property>
@@ -400,9 +417,17 @@
      </property>
      <addaction name="actionSrt"/>
     </widget>
+    <widget class="QMenu" name="menuOpen">
+     <property name="title">
+      <string>open</string>
+     </property>
+     <addaction name="actionSubtitle_file"/>
+     <addaction name="actionMedia_file"/>
+    </widget>
     <addaction name="actionSave"/>
     <addaction name="menuSave_As"/>
     <addaction name="actionExit"/>
+    <addaction name="menuOpen"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -428,6 +453,16 @@
     <string>srt</string>
    </property>
   </action>
+  <action name="actionSubtitle_file">
+   <property name="text">
+    <string>Subtitle file</string>
+   </property>
+  </action>
+  <action name="actionMedia_file">
+   <property name="text">
+    <string>Media file</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -443,15 +478,8 @@
   <tabstop>tableWidget</tabstop>
   <tabstop>srt</tabstop>
   <tabstop>view1</tabstop>
-  <tabstop>play</tabstop>
-  <tabstop>stop</tabstop>
-  <tabstop>mute</tabstop>
   <tabstop>volumeSlider</tabstop>
-  <tabstop>view0</tabstop>
   <tabstop>textEdit</tabstop>
-  <tabstop>timeLine</tabstop>
-  <tabstop>scale_in_but</tabstop>
-  <tabstop>scale_out_but</tabstop>
  </tabstops>
  <resources/>
  <connections/>

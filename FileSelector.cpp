@@ -26,14 +26,29 @@ void FileSelector::openFile() {
     if (!filename.isNull()) {
         //        qDebug(filename.toAscii());
         dataObject ob;
-        ob.object = "file_selecter";
-        ob.val=1;
+        ob.object = "file_selector_open";
+        ob.val=0;
         ob.msg = filename.toStdString();
         Notify(ob);
         //        cout<<filename.toStdString()<<endl;
     }
 }
 
+void FileSelector::openSubFile(){
+    QString filename = QFileDialog::getOpenFileName(
+            this,
+            tr("Open Document"),
+            QDir::currentPath(),
+            tr("Subtitle files (*.srt *.ssa);;All files (*.*)"));
+    if (!filename.isNull()) {
+        dataObject ob;
+        ob.object = "file_selector_open";
+        ob.val=1;
+        ob.msg = filename.toStdString();
+        Notify(ob);
+    }
+    
+}
 void FileSelector::openFiles() {
     QStringList filenames = QFileDialog::getOpenFileNames(
             this,
@@ -60,8 +75,15 @@ void FileSelector::saveFile() {
             this,
             tr("Save Document"),
             QDir::currentPath(),
-            tr("Documents (*.doc)"));
+            tr("srt (*.srt);;ssa (*.ssa)"));
+//    if(filename.endsWith(".srt",Qt::CaseInsensitive)){
+//    cout<<"srt"<<endl;
+//    }
     if (!filename.isNull()) {
+        dataObject ob;
+        ob.object = "file_selector_save";
+        ob.msg = filename.toStdString();
+        Notify(ob);
         qDebug(filename.toAscii());
     }
 }

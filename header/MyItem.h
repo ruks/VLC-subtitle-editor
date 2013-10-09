@@ -26,7 +26,7 @@ protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
     void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
-    bool sceneEventFilter(QGraphicsItem *watched,QEvent *event);
+    bool sceneEventFilters(QGraphicsItem *watched,QEvent *event);
 
 };
 

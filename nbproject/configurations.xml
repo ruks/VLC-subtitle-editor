@@ -41,6 +41,8 @@
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/header/MyItem.h</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/Observable.cpp</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/Observable.h</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/source/PlaySubtitle.cpp</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/header/PlaySubtitle.h</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/source/SubtitleRead.cpp</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/header/SubtitleRead.h</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/player.cpp</itemPath>

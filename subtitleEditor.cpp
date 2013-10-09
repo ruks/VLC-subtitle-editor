@@ -19,6 +19,7 @@
 #include <iostream>
 #include <string>
 #include "srtFormat.h"
+#include "header/PlaySubtitle.h"
 
 using namespace std;
 
@@ -28,6 +29,8 @@ printbits *waveGen;
 subtitleSave *subSave;
 FileSelector *fileBrowser;
 
+SubtitleRead *subRead;
+
 Ui::MainWindow widjet;
 int pre = 0;
 bool isDrag = false;
@@ -35,27 +38,31 @@ bool isMarginX = false;
 bool isMarginY = false;
 
 subtitleEditor::subtitleEditor() {
-    mplayer = new player();// create new player object
+    mplayer = new player(); // create new player object
 
-    window = new MainWindow();//create main window
-    window->setPlayer(mplayer);// set player at the player
+    window = new MainWindow(); //create main window
+    window->setPlayer(mplayer); // set player at the player
 
-    waveGen = new printbits();// set the wavegen class
-    waveGen->setMainWindow(window);//set the main window on the print bits class
+    waveGen = new printbits(); // set the wavegen class
+    waveGen->setMainWindow(window); //set the main window on the print bits class
     waveGen->Attach(this);
-    waveGen->start();// start to read pcm data
+    waveGen->start(); // start to read pcm data
 
-    subSave = new subtitleSave();// create class to save subtitle
+    subSave = new subtitleSave(); // create class to save subtitle
     //    subSave->readSubtitle();
-    fileBrowser = new FileSelector();// create object to browse file
-    fileBrowser->Attach(this);// set this class as a observer at filebbrowser class
+    fileBrowser = new FileSelector(); // create object to browse file
+    fileBrowser->Attach(this); // set this class as a observer at filebbrowser class
 
-    window->Attach(this);// set this class as a observer at filebbrowser class
-    window->getTgs()->Attach(this);// set this class as a observer at filebbrowser class
-    window->getTimeCursorTgs()->Attach(this);// set this class as a observer at filebbrowser class
-    window->show();// show the main window
-    mplayer->Attach(this);// set this class as a observer at filebbrowser class
+    window->Attach(this); // set this class as a observer at filebbrowser class
+    window->getTgs()->Attach(this); // set this class as a observer at filebbrowser class
+    window->getTimeCursorTgs()->Attach(this); // set this class as a observer at filebbrowser class
+    window->show(); // show the main window
+    mplayer->Attach(this); // set this class as a observer at filebbrowser class
     window->getMyItem()->Attach(this);
+    window->getPLaySubtitle()->Attach(this);
+    //    subRead = new SubtitleRead();
+    //    window->setSubReader(subRead);
+    //    playSub = new PlaySubtitle(subRead,mplayer);
 }
 
 subtitleEditor::subtitleEditor(const subtitleEditor& orig) {
@@ -68,9 +75,10 @@ subtitleEditor::~subtitleEditor() {
 void subtitleEditor::Update(dataObject object) {
     if (object.object == "play_btn") {// catch the play btn click event
         mplayer->play();
-    } else if (object.object == "srt_btn") {// catch the srt btn click event
-        vector<srtFormat> f=window->getCurrentSubData();
-        subSave->saveFile(f);
+    } else if (object.object == "pause_btn") {
+        mplayer->pause();
+    } else if (object.object == "srt_btn") {// catch the srt btn click event       
+        fileBrowser->saveFile();
     } else if (object.object == "mute_btn") {// catch the mute btn click event
         mplayer->mute(window->getVolumeLevel());
     } else if (object.object == "stop_btn") {// catch the stop btn click event
@@ -102,6 +110,9 @@ void subtitleEditor::Update(dataObject object) {
                 isDrag = true;
             }
         }
+        qDebug("move");
+        window->increaseSubTime(object.x);
+
     } else if (object.object == "timeSlotBar" && object.msg == "time_slot_mouse_release") {//time slot mouse release event
         QApplication::setOverrideCursor(Qt::OpenHandCursor);
         isDrag = false;
@@ -152,9 +163,10 @@ void subtitleEditor::Update(dataObject object) {
             QApplication::setOverrideCursor(Qt::ArrowCursor);
         }
     } else if (object.object == "player") {//if msg from player
-        if (object.msg == "media_explorer") {// if msg to open file
-            cout << object.msg << endl;
+        if (object.msg == "media_explorer_media") {// if msg to open file
             fileBrowser->openFile();
+        } else if (object.msg == "media_explorer_sub") {// if msg to open file
+            fileBrowser->openSubFile();
         } else if (object.msg == "play") {// if play msg
             window->setPlayBtnText("play");
         } else if (object.msg == "pause") {// if pause msg
@@ -162,25 +174,44 @@ void subtitleEditor::Update(dataObject object) {
         } else if (object.msg == "mute") {// if mute msg
             window->setVolumeLevel(object.val);
         }
-    } else if (object.object == "file_selecter") {//if msg from file_selecter
-        libvlc_media_player_t * m;
-        m=mplayer->open(object.msg);// open new media file
-        QWidget* qw;
-        qw=window->getGraphicView().graphicsView;// set display on player
+    } else if (object.object == "file_selector_open") {//if msg from file_selecter
+        if (object.val == 0) {
+            libvlc_media_player_t * m;
+            //            mplayer->stop();
+            m = mplayer->open(object.msg); // open new media file
+            QWidget* qw;
+            qw = window->getGraphicView().graphicsView; // set display on player
 #if defined(Q_OS_MAC)
-        libvlc_media_player_set_nsobject(m, (void *) qw->winId());
+            libvlc_media_player_set_nsobject(m, (void *) qw->winId());
 #elif defined(Q_OS_UNIX)
-        libvlc_media_player_set_xwindow(m,qw->winId());
+            libvlc_media_player_set_xwindow(m, qw->winId());
 #elif defined(Q_OS_WIN)
-        libvlc_media_player_set_hwnd(m, qw->winId());
+            libvlc_media_player_set_hwnd(m, qw->winId());
 #endif
+        } else if (object.val == 1) {
+            subRead=new SubtitleRead();
+            subRead->open(object.msg);
+            window->setSubtitle(subRead->getSubList());
+        }
 
-    }else if(object.object=="timeChange"){
+    } else if (object.object == "file_selector_save") {
+        vector<srtFormat> f = window->getCurrentSubData();
+        QString filename=QString::fromStdString(object.msg);
+            if(filename.endsWith(".srt",Qt::CaseInsensitive)){
+                subSave->saveFile(f, object.msg);
+            }else if(filename.endsWith(".ass",Qt::CaseInsensitive)){
+                subSave->saveAsASS(f, object.msg);
+            }                   
+                
+        
+    } else if (object.object == "timeChange") {
         //if(object.v)
-        cout<<object.val<<endl;
+        cout << object.val << endl;
         window->changeTime(object.val);
-    }else if(object.object=="printBits" && object.msg=="setGraph"){
-//        window->setSampleList(waveGen->getLeftlist(),waveGen->getRightlist());
+    } else if (object.object == "printBits" && object.msg == "setGraph") {
+        window->ffmpegGraphPlot(waveGen->getLeftlist(), waveGen->getRightlist());
+    } else if (object.object == "sub_Play") {
+        window->selectRow(object.val);
     }
     //    cout << object.object << endl;
 }
