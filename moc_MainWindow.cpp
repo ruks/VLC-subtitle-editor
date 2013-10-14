@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MainWindow.h'
 **
-** Created: Wed Oct 9 11:26:09 2013
+** Created: Mon Oct 14 10:47:40 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      19,   14, // methods
+      22,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -46,10 +46,13 @@ static const uint qt_meta_data_MainWindow[] = {
      327,   11,   11,   11, 0x08,
      355,   11,   11,   11, 0x08,
      379,   11,   11,   11, 0x08,
-     404,   11,   11,   11, 0x08,
-     439,   11,   11,   11, 0x08,
-     523,  471,   11,   11, 0x08,
-     574,   11,   11,   11, 0x08,
+     403,   11,   11,   11, 0x08,
+     434,   11,   11,   11, 0x08,
+     469,   11,   11,   11, 0x08,
+     553,  501,   11,   11, 0x08,
+     604,   11,   11,   11, 0x08,
+     632,  630,   11,   11, 0x08,
+     652,   11,   11,   11, 0x0a,
 
        0        // eod
 };
@@ -65,13 +68,14 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "on_subTimeStopCmd_clicked()\0"
     "on_add_row_after_clicked()\0"
     "on_add_row_before_clicked()\0"
-    "on_remove_row_clicked()\0"
-    "on_actionSrt_triggered()\0"
+    "on_remove_row_clicked()\0on_clearTable_clicked()\0"
+    "on_actionSave_As_2_triggered()\0"
     "on_actionSubtitle_file_triggered()\0"
     "on_actionMedia_file_triggered()\0"
     "currentRow,currentColumn,previousRow,previousColumn\0"
     "on_tableWidget_currentCellChanged(int,int,int,int)\0"
-    "on_textEdit_textChanged()\0"
+    "on_textEdit_textChanged()\0t\0"
+    "timesChanged(QTime)\0setTable()\0"
 };
 
 void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -94,11 +98,14 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 11: _t->on_add_row_after_clicked(); break;
         case 12: _t->on_add_row_before_clicked(); break;
         case 13: _t->on_remove_row_clicked(); break;
-        case 14: _t->on_actionSrt_triggered(); break;
-        case 15: _t->on_actionSubtitle_file_triggered(); break;
-        case 16: _t->on_actionMedia_file_triggered(); break;
-        case 17: _t->on_tableWidget_currentCellChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
-        case 18: _t->on_textEdit_textChanged(); break;
+        case 14: _t->on_clearTable_clicked(); break;
+        case 15: _t->on_actionSave_As_2_triggered(); break;
+        case 16: _t->on_actionSubtitle_file_triggered(); break;
+        case 17: _t->on_actionMedia_file_triggered(); break;
+        case 18: _t->on_tableWidget_currentCellChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
+        case 19: _t->on_textEdit_textChanged(); break;
+        case 20: _t->timesChanged((*reinterpret_cast< QTime(*)>(_a[1]))); break;
+        case 21: _t->setTable(); break;
         default: ;
         }
     }
@@ -138,9 +145,9 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 19)
+        if (_id < 22)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 19;
+        _id -= 22;
     }
     return _id;
 }

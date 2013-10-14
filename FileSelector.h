@@ -9,6 +9,8 @@
 #define	_FILESELECTOR_H
 #include <QFileDialog>
 #include "Observable.h"
+#include <QtCore/QtCore>
+#include <QtGui/QtGui>
 
 class FileSelector : public QWidget, public Observable {
 public:

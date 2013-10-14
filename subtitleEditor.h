@@ -10,14 +10,18 @@
 
 #include "IObserver.h"
 #include "srtFormat.h"
+//#include <QtCore/QtCore>
+//#include <QtGui/QtGui>
 
-class subtitleEditor : IObserver {
+class subtitleEditor : IObserver{
 public:
     subtitleEditor();
     subtitleEditor(const subtitleEditor& orig);
     virtual ~subtitleEditor();
     void Update(dataObject object);
 private:
+protected:
+    void run();
 
 };
 

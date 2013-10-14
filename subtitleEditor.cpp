@@ -177,24 +177,20 @@ void subtitleEditor::Update(dataObject object) {
     } else if (object.object == "file_selector_open") {//if msg from file_selecter
         if (object.val == 0) {
             libvlc_media_player_t * m;
-            //            mplayer->stop();
             m = mplayer->open(object.msg); // open new media file
             QWidget* qw;
             qw = window->getGraphicView().graphicsView; // set display on player
 #if defined(Q_OS_MAC)
             libvlc_media_player_set_nsobject(m, (void *) qw->winId());
 #elif defined(Q_OS_UNIX)
-            libvlc_media_player_set_xwindow(m, qw->winId());
+            libvlc_media_player_set_xwindow(mplayer->getMP(), qw->winId());
 #elif defined(Q_OS_WIN)
             libvlc_media_player_set_hwnd(m, qw->winId());
 #endif
         } else if (object.val == 1) {
-            subRead=new SubtitleRead();
-            qDebug("start Reading");
+//            subRead=new SubtitleRead();
             subRead->open(object.msg);
-            qDebug("start setting");
             window->setSubtitle(subRead->getSubList());
-            qDebug("Finished");
         }
 
     } else if (object.object == "file_selector_save") {
@@ -217,4 +213,8 @@ void subtitleEditor::Update(dataObject object) {
         window->selectRow(object.val);
     }
     //    cout << object.object << endl;
+}
+
+void subtitleEditor::run(){
+//     window->setSubtitle(subRead->getSubList());
 }

@@ -39,12 +39,13 @@ void FileSelector::openSubFile(){
             this,
             tr("Open Document"),
             QDir::currentPath(),
-            tr("Subtitle files (*.srt *.ssa);;All files (*.*)"));
+            tr("Subtitle files (*.srt *.ass);;All files (*.*)"));
+    
     if (!filename.isNull()) {
         dataObject ob;
         ob.object = "file_selector_open";
         ob.val=1;
-        ob.msg = filename.toStdString();
+        ob.msg = filename.toStdString();         
         Notify(ob);
     }
     

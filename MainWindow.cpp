@@ -41,7 +41,10 @@
 #include <qt4/QtCore/qstring.h>
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
+#include <qt4/QtCore/qmetatype.h>
+#include <qt4/QtCore/qvariant.h>
 #include "header/PlaySubtitle.h"
+#include "header/MyQTimeEdit.h"
 
 using namespace std;
 
@@ -69,6 +72,7 @@ MyItem *slot;
 QQueue<int> qLL;
 QQueue<int> qRR;
 PlaySubtitle *playSub;
+vector<srtFormat> subList;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     widget.setupUi(this); //init gui components
@@ -106,8 +110,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     reads = new SubtitleRead(); // create object for read subtitle
     widget.volumeSlider->setValue(80);
 
-    //    reads->open("/home/rukshan/Oblivion.srt");
-    //    setSubtitle(reads->getSubList());
+//    reads->open("/home/rukshan/Oblivion.srt");
+//    setSubtitle(reads->getSubList());
 
     playSub = new PlaySubtitle(reads, mpw);
     playSub->setTable(widget.tableWidget);
@@ -148,10 +152,56 @@ void MainWindow::updateInterface() {
     /* update player time infomation*/
     widget.graphicViewSlider->setValue(mpw->getPosition());
     int t = mpw->getTime() / 1000;
-    widget.cTimeLbl->setText(QString::number(t / 3600, 10) + ":" + QString::number((t / 60) % 60, 10) + ":" + QString::number(t % 60, 10));
+    int h, m, s;
+    QString fh, fm, fs;
+
+    h = t / 3600;
+    m = (t / 60) % 60;
+    s = t % 60;
+
+    if (h < 10) {
+        fh = "0" + QString::number(h);
+    } else {
+        fh = QString::number(h);
+    }
+
+    if (m < 10) {
+        fm = "0" + QString::number(m);
+    } else {
+        fm = QString::number(m);
+    }
+
+    if (s < 10) {
+        fs = "0" + QString::number(s);
+    } else {
+        fs = QString::number(s);
+    }
+
+    widget.cTimeLbl->setText(fh + ":" + fm + ":" + fs);
 
     t = mpw->getLength() / 1000;
-    widget.tTimeLbl->setText(QString::number(t / 3600, 10) + ":" + QString::number((t / 60) % 60, 10) + ":" + QString::number(t % 60, 10));
+    h = t / 3600;
+    m = (t / 60) % 60;
+    s = t % 60;
+
+    if (h < 10) {
+        fh = "0" + QString::number(h);
+    } else {
+        fh = QString::number(h);
+    }
+
+    if (m < 10) {
+        fm = "0" + QString::number(m);
+    } else {
+        fm = QString::number(m);
+    }
+
+    if (s < 10) {
+        fs = "0" + QString::number(s);
+    } else {
+        fs = QString::number(s);
+    }
+    widget.tTimeLbl->setText(fh + ":" + fm + ":" + fs);
 
 
     /* update cursor position and determine its location*/
@@ -379,9 +429,9 @@ void MainWindow::drawGraph() {
 }
 
 void MainWindow::addToGraph() {
-    int v = widget.horizontalScrollBar->value();
-    int x, y0, y1;
-    x = 255;
+    //    int v = widget.horizontalScrollBar->value();
+    int y0, y1;
+    //    x = 255;
     int xx;
     QPen pen(Qt::blue);
     pen.setWidth(2);
@@ -461,7 +511,9 @@ void MainWindow::plotGraph() {
     widget.PlotView1->replot();
 }
 
-void MainWindow::setSubtitle(vector<srtFormat> v) {
+void MainWindow::setSubtitle(vector<srtFormat> vv) {
+    subList = vv;
+    //addToGraph(); // draw data on graph as thread function
     widget.tableWidget->setRowCount(0); // clear the exsisting subtitles
 
     long st;
@@ -474,8 +526,12 @@ void MainWindow::setSubtitle(vector<srtFormat> v) {
     int sMs, fMs;
 
     //add subtitle component as appropriate
-    for (int i = 0; i < v.size(); i++) {
-        srtFormat srt = v.at(i);
+    //QMessageBox *msgBox = new QMessageBox(this); 
+    QString lString("HelloWorld");
+    QMessageBox msgBox(QMessageBox::Information, QString("HelloWorld"), (lString), QMessageBox::NoButton, this);
+    
+    for (int i = 0; i < (signed int) subList.size(); i++) {
+        srtFormat srt = subList.at(i);
         widget.tableWidget->insertRow(i);
         QString s = QString::fromStdString(srt.text);
 
@@ -485,7 +541,6 @@ void MainWindow::setSubtitle(vector<srtFormat> v) {
         //        QString sTime = QString::fromStdString(srt.startH + ":" + srt.startM + ":" + srt.startS + "," + srt.startMs);
         //        QString eTime = QString::fromStdString(srt.stopH + ":" + srt.stopM + ":" + srt.stopS + "," + srt.stopMs);
         dt = et - st;
-        //        QString dTime = QString::number(dt, 10);
 
         sH = QString::fromStdString(srt.startH).toInt();
         sM = QString::fromStdString(srt.startM).toInt();
@@ -509,25 +564,67 @@ void MainWindow::setSubtitle(vector<srtFormat> v) {
         edit->setText(s.trimmed().simplified());
 
         QSpinBox *spin = new QSpinBox(widget.tableWidget);
-        spin->setRange(0, 10000);
+        spin->setRange(0, 100000);
         spin->setValue(dt);
 
-        //        widget.tableWidget->setItem(i, 0, new QTableWidgetItem(sTime));
-        //        widget.tableWidget->setItem(i, 1, new QTableWidgetItem(eTime));
-        //        widget.tableWidget->setItem(i, 2, new QTableWidgetItem(dTime));
-        //        widget.tableWidget->setItem(i, 3, new QTableWidgetItem(s.trimmed().simplified()));
+        QObject::connect(st, SIGNAL(timeChanged(QTime)), this, SLOT(timesChanged(QTime)));
+        QObject::connect(ft, SIGNAL(timeChanged(QTime)), this, SLOT(timesChanged(QTime)));
 
         widget.tableWidget->setCellWidget(i, 0, st);
         widget.tableWidget->setCellWidget(i, 1, ft);
         widget.tableWidget->setCellWidget(i, 2, spin);
         widget.tableWidget->setCellWidget(i, 3, edit);
 
-        cout << (i * 100) / v.size() << " %\r";
+        cout << (i * 100) / subList.size() << " %\r";
         cout.flush();
+        
+//        msgBox.setText(QString::number((i * 100) / subList.size())); 
+//        widget.textEdit->setText(QString::number((i * 100) / subList.size()));
+//        msgBox->setText("rukshan");
+//        msgBox.show();        
+    }
+}
+
+void MainWindow::timesChanged(QTime t) {
+    //when time edit event occur
+    QWidget *wid = QApplication::focusWidget();
+    QTimeEdit *cell = qobject_cast<QTimeEdit*>(wid);
+
+    QTimeEdit *st;
+    QTimeEdit *et;
+    QSpinBox *du;
+    int start, end;
+    if (wid) {
+        QModelIndex index = widget.tableWidget->indexAt(cell->pos());
+        //        cout << index.row() << " " << index.column() << endl;
+        if (index.column() == 0) {
+            st = cell;
+            et = qobject_cast<QTimeEdit*>(widget.tableWidget->cellWidget(index.row(), 1));
+        } else {
+            et = cell;
+            st = qobject_cast<QTimeEdit*>(widget.tableWidget->cellWidget(index.row(), 0));
+        }
+        QTime tt;
+        tt = st->time();
+        start = tt.msec() + 1000 * (tt.second() + tt.minute()*60 + tt.hour()*3600);
+        tt = et->time();
+        end = tt.msec() + 1000 * (tt.second() + tt.minute()*60 + tt.hour()*3600);
+
+        if (start > end) {
+            if (index.column() == 0) {
+                st->setTime(et->time());
+            } else {
+                et->setTime(st->time());
+            }
+        }
+
+        du = qobject_cast<QSpinBox*>(widget.tableWidget->cellWidget(index.row(), 2));
+        du->setValue(end - start);
 
     }
 
-    cout << endl;
+
+
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent* e) {
@@ -547,12 +644,13 @@ void MainWindow::dropEvent(QDropEvent* e) {
     } else if (strcasecmp(s.c_str(), ".mp4") == 0) {//else it is mp4 open in player
         //        mpw->open(fileName.toStdString());
         dataObject ob;
-        ob.object = "file_selector";
-        ob.val = 1;
+        ob.val =0;
+        ob.object = "file_selector_open";
+//        ob.val = 1;
         ob.msg = fileName.toStdString();
         Notify(ob);
     }
-    qDebug(fileName.toStdString().c_str());
+    //    qDebug(fileName.toStdString().c_str());
 }
 
 void MainWindow::setPlayBtnText(string msg) {
@@ -568,7 +666,7 @@ int MainWindow::getVolumeLevel() {
 }
 
 void MainWindow::run() {
-    //addToGraph(); // draw data on graph as thread function
+
 }
 
 vector<srtFormat> MainWindow::getCurrentSubData() {
@@ -703,7 +801,7 @@ void MainWindow::on_subTimeStopCmd_clicked() {
 void MainWindow::addRow(bool isUp) {
 
     int n = widget.tableWidget->currentRow();
-    qDebug(QString::number(n).toStdString().c_str());
+    //    qDebug(QString::number(n).toStdString().c_str());
 
     if (isUp) {
         //        n;
@@ -718,23 +816,26 @@ void MainWindow::addRow(bool isUp) {
 
     QTimeEdit *st = new QTimeEdit(widget.tableWidget);
     st->setDisplayFormat("HH:mm:ss.zzz");
-    //        st->setTime(QTime(sH, sM, sS, sMs));
 
     QTimeEdit *ft = new QTimeEdit(widget.tableWidget);
     ft->setDisplayFormat("HH:mm:ss.zzz");
-    //        ft->setTime(QTime(fH, fM, fS, fMs));
 
     QTextEdit *edit = new QTextEdit(widget.tableWidget);
-    //        edit->setText(s.trimmed().simplified());
 
     QSpinBox *spin = new QSpinBox(widget.tableWidget);
-    spin->setRange(0, 10000);
-    //        spin->setValue(dt);
+    spin->setRange(0, 100000);
+
+    QObject::connect(st, SIGNAL(timeChanged(QTime)), this, SLOT(timesChanged(QTime)));
+    QObject::connect(ft, SIGNAL(timeChanged(QTime)), this, SLOT(timesChanged(QTime)));
+
+    //    widget.tableWidget->model()
 
     widget.tableWidget->setCellWidget(n, 0, st);
     widget.tableWidget->setCellWidget(n, 1, ft);
     widget.tableWidget->setCellWidget(n, 2, spin);
     widget.tableWidget->setCellWidget(n, 3, edit);
+
+    //    widget.tableWidget->row(st);
 }
 
 void MainWindow::removeRow() {
@@ -748,18 +849,18 @@ void MainWindow::increaseSubTime(int i) {
         return;
     }
 
-    QTimeEdit *q = qobject_cast<QTimeEdit *>(widget.tableWidget->cellWidget(n, 0));
+    //    QTimeEdit *q = qobject_cast<QTimeEdit *>(widget.tableWidget->cellWidget(n, 0));
     //    QTime t=q->time().addMSecs();
 
     //    q->setTime(t);
 }
 
 void MainWindow::decreaseSubTime(int i) {
-
 }
 
 void MainWindow::ffmpegGraphPlot(QQueue<int> LL, QQueue<int> RR) {
     qLL = LL;
+    qRR = RR;
 
     widget.PlotView0->addGraph();
     widget.PlotView0->graph()->setPen(QPen(Qt::blue));
@@ -818,7 +919,7 @@ PlaySubtitle* MainWindow::getPLaySubtitle() {
     return playSub;
 }
 
-void MainWindow::on_actionSrt_triggered() {
+void MainWindow::on_actionSave_As_2_triggered() {
     dataObject ob;
     ob.object = "srt_btn";
     Notify(ob);
@@ -853,4 +954,12 @@ void MainWindow::on_textEdit_textChanged() {
         QTextEdit *st = qobject_cast<QTextEdit*>(widget.tableWidget->cellWidget(currentRow, 3));
         //        st->setText(widget.textEdit->toPlainText());
     }
+}
+
+void MainWindow::on_clearTable_clicked() {
+    widget.tableWidget->setRowCount(0);
+}
+
+void MainWindow::setTable() {
+
 }

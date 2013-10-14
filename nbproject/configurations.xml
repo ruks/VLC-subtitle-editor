@@ -39,6 +39,8 @@
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/MainWindow.ui</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/source/MyItem.cpp</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/header/MyItem.h</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/source/MyQTimeEdit.cpp</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/header/MyQTimeEdit.h</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/Observable.cpp</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/Observable.h</itemPath>
     <itemPath>/home/rukshan/NetBeansProjects/waveViewer/source/PlaySubtitle.cpp</itemPath>

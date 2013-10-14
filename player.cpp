@@ -19,7 +19,6 @@ libvlc_media_t *m;
 
 player::player() {
     inst = libvlc_new(0, NULL); //constructor    
-    //    qDebug()
     dataObject ob;
     ob.object = "file_selector_open";
     ob.msg = "/home/rukshan/Oblivion.mp4";
@@ -162,10 +161,10 @@ libvlc_media_player_t* player::getMP() {
 
 libvlc_media_player_t * player::open(string path) {
     //stop();
-
+    inst = libvlc_new(0, NULL); //constructor    
     m = libvlc_media_new_path(inst, path.c_str());
     if (!m) {
-        //        exit(EXIT_FAILURE);
+        qDebug("error load");
         return NULL;
     }
     // create a media play playing environment

@@ -51,13 +51,19 @@ private slots:
     void on_add_row_after_clicked();
     void on_add_row_before_clicked();
     void on_remove_row_clicked();
-    
-    void on_actionSrt_triggered();
+    void on_clearTable_clicked();
+
+    void on_actionSave_As_2_triggered();
     void on_actionSubtitle_file_triggered();
-    void on_actionMedia_file_triggered();   
+    void on_actionMedia_file_triggered();
     void on_tableWidget_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
-    
+
     void on_textEdit_textChanged();
+    void timesChanged(QTime t);
+    
+public slots:
+    void setTable();
+    
 public:
     void addToQueue(int a, int b);
     void update();
@@ -67,7 +73,7 @@ public:
     TGS* getTgs();
     TGS* getTimeCursorTgs();
     void setSampleList(short int *s, int frame, int rate/*QQueue<int> L, QQueue<int> R*/);
-    void setSubtitle(vector<srtFormat> v);
+    void setSubtitle(vector<srtFormat> vv);
     void setPlayBtnText(string msg);
     int getVolumeLevel();
     void setVolumeLevel(int val);
@@ -84,7 +90,7 @@ public:
     void setSubReader(SubtitleRead *read);
     void selectRow(int i);
     PlaySubtitle* getPLaySubtitle();
-    
+
 protected:
     void dragEnterEvent(QDragEnterEvent *e);
     void dropEvent(QDropEvent *e);
