@@ -110,7 +110,7 @@ void subtitleEditor::Update(dataObject object) {
                 isDrag = true;
             }
         }
-        qDebug("move");
+//        qDebug("move");
         window->increaseSubTime(object.x);
 
     } else if (object.object == "timeSlotBar" && object.msg == "time_slot_mouse_release") {//time slot mouse release event

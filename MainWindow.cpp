@@ -587,6 +587,7 @@ void MainWindow::setSubtitle(vector<srtFormat> vv) {
 
 void MainWindow::timesChanged(QTime t) {
     //when time edit event occur
+    return;
     QWidget *wid = QApplication::focusWidget();
     QTimeEdit *cell = qobject_cast<QTimeEdit*>(wid);
 
@@ -612,15 +613,19 @@ void MainWindow::timesChanged(QTime t) {
 
         if (start > end) {
             if (index.column() == 0) {
-                st->setTime(et->time());
+//                st->setTime(et->time());
             } else {
-                et->setTime(st->time());
+//                et->setTime(st->time());
             }
         }
 
         du = qobject_cast<QSpinBox*>(widget.tableWidget->cellWidget(index.row(), 2));
         du->setValue(end - start);
-
+        delete wid;
+        delete cell;
+        delete et;
+        delete st;
+        delete du;
     }
 
 
@@ -775,9 +780,13 @@ void MainWindow::on_subTimeStartCmd_clicked() {
     int m = (t / 60) % 60;
     int s = t % 60;
 
-
+    cout<<t<<" "<<n<<endl;
     QTimeEdit *q = qobject_cast<QTimeEdit *>(widget.tableWidget->cellWidget(n, 0));
+    QTimeEdit *q2 = qobject_cast<QTimeEdit *>(widget.tableWidget->cellWidget(n, 1));
+    
     q->setTime(QTime(h, m, s, ms));
+//    q2->setTime(QTime(h, m, s, ms));
+    
 }
 
 void MainWindow::on_subTimeStopCmd_clicked() {
@@ -894,7 +903,7 @@ void MainWindow::ffmpegGraphPlot(QQueue<int> LL, QQueue<int> RR) {
     widget.PlotView0->replot();
 
     widget.PlotView1->addGraph();
-    widget.PlotView1->graph(0)->setData(x0, y1);
+    widget.PlotView1->graph(0)->setData(x0, y0);
 
     widget.PlotView1->xAxis->setRange(0, 1000);
     widget.PlotView1->yAxis->setRange(-255, 255);

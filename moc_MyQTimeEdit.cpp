@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MyQTimeEdit.h'
 **
-** Created: Sun Oct 13 12:08:56 2013
+** Created: Sun Nov 3 21:08:54 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!

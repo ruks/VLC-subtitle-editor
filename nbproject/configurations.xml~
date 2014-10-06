@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="80">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>main.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f1"
+                     displayName="New CppUnit Test"
+                     projectFiles="false"
+                     kind="TEST">
+        <itemPath>/home/rukshan/NetBeansProjects/waveViewer/tests/newtestclass.cpp</itemPath>
+        <itemPath>/home/rukshan/NetBeansProjects/waveViewer/tests/newtestclass.h</itemPath>
+        <itemPath>/home/rukshan/NetBeansProjects/waveViewer/tests/newtestrunner.cpp</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/IObserver.h</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/MainWindow.cpp</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/MainWindow.h</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/MainWindow.ui</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/Observable.cpp</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/Observable.h</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/player.cpp</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/player.h</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/printbits.cpp</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/printbits.h</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/smem.cpp</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/smem.h</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/srtFormat.h</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/subtitleEditor.cpp</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/subtitleEditor.h</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/subtitleSave.cpp</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/subtitleSave.h</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/source/tgs.cpp</itemPath>
+    <itemPath>/home/rukshan/NetBeansProjects/waveViewer/header/tgs.h</itemPath>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="4">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <qt>
+        <modules>core gui</modules>
+      </qt>
+      <compileType>
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+          <linkerLibItems>
+            <linkerLibLibItem>vlc</linkerLibLibItem>
+            <linkerLibFileItem>/home/rukshan/NetBeansProjects/waveViewer/lib/libsoundfile.a</linkerLibFileItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerLibItems>
+            <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+          <linkerLibItems>
+            <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+    </conf>
+    <conf name="Release" type="4">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <qt>
+        <buildMode>1</buildMode>
+        <modules>core gui</modules>
+      </qt>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>

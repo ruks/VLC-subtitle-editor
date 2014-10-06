@@ -20,4 +20,4 @@ QMAKE_CC = gcc
 QMAKE_CXX = g++
 DEFINES += 
 INCLUDEPATH += 
-LIBS += 
+LIBS += -lvlc /home/rukshan/NetBeansProjects/waveViewer/lib/libsoundfile.a -lcppunit -lavcodec -lavformat -lavutil -lsndfile  

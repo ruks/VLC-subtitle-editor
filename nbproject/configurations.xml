@@ -164,37 +164,14 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
-      </compileType>
-    </conf>
-    <conf name="Windows" type="4">
-      <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
-        <compilerSet>GNU_1|GNU</compilerSet>
-      </toolsSet>
-      <qt>
-        <modules>core gui</modules>
-      </qt>
-      <compileType>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
         <linkerTool>
           <linkerLibItems>
             <linkerLibLibItem>vlc</linkerLibLibItem>
+            <linkerLibFileItem>/home/rukshan/NetBeansProjects/waveViewer/lib/libsoundfile.a</linkerLibFileItem>
+            <linkerLibLibItem>cppunit</linkerLibLibItem>
+            <linkerLibLibItem>avcodec</linkerLibLibItem>
+            <linkerLibLibItem>avformat</linkerLibLibItem>
+            <linkerLibLibItem>avutil</linkerLibLibItem>
             <linkerLibLibItem>sndfile</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>

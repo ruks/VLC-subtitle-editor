@@ -54,7 +54,7 @@ void printbits::ffmpegPCM() {
     AVFormatContext *pFormatCtx;
 
     AVFormatContext* container = avformat_alloc_context();
-    const char* file = "video.mp4";
+    const char* file = "/home/rukshan/movie.mp4";
 
     if (avformat_open_input(&container, file, NULL, NULL) < 0) {
         printf("Could not open file");
@@ -113,10 +113,11 @@ void printbits::ffmpegPCM() {
             if (frameFinished) {
                 char* ptr_l = (char*) frame->extended_data[0];
                 char* ptr_r = (char*) frame->extended_data[1];
+                
                 size_t size = sizeof (int16_t);
                 for (i = 0; i < frame->linesize[0]; i += size) {
                     qL.push_back(*(ptr_l));
-//                    qR.push_back(*(ptr_r));
+                    qR.push_back(*(ptr_l));
                     ptr_l += size;
                     ptr_r += size;
                 }
